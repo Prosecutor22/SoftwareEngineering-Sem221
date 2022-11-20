@@ -22,11 +22,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(session({
-  secret: 'test',
-  resave: false, // don't save session if unmodified
-  saveUninitialized: false, // don't create session until something stored
+  secret: '123456789',
+  resave: false, 
+  saveUninitialized: false
 }));
 app.use(passport.authenticate('session'));
+app.use(function(req, res, next) {
+  var msgs = req.session.messages || [];
+  res.locals.messages = msgs;
+  res.locals.hasMessages = !! msgs.length;
+  req.session.messages = [];
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/back-officer', backOfficerRouter);
