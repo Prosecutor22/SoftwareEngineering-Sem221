@@ -1,12 +1,41 @@
 var express = require('express');
 var router = express.Router();
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
+var BackOfficer = require('../models').BackOfficer;
+var MCP = require('../models').MCP;
+var Collector = require('../models').Collector;
+var Janitor = require('../models').Janitor;
+var Vehicle = require('../models').Vehicle;
+var Troller = require('../models').Troller;
+var Route = require('../models').Route;
 
 var ensureLoggedIn = ensureLogIn('/signin');
 
+function getNumber(modelCollection){
+    return new Promise((resolve, reject) => {
+        modelCollection.countDocuments({}, (err, count) => {
+            if (err){
+                reject(err);
+            }
+            else {
+                resolve(count);
+            }
+        });
+    });
+}
+
 // TO-DO: render dashboard
-router.get('/dashboard', ensureLoggedIn, function(req, res, next) {
-    res.send("Welcome to Dashboard!");
+router.get('/dashboard', ensureLoggedIn, async function(req, res, next) {
+    console.log('================');
+    statistics = {};
+    statistics = Object.assign(statistics, {"numBackOficer" : await getNumber(BackOfficer)});
+    statistics = Object.assign(statistics, {"numMCP" : await getNumber(MCP)});
+    statistics = Object.assign(statistics, {"numCollector" : await getNumber(Collector)});
+    statistics = Object.assign(statistics, {"numJanitor" : await getNumber(Janitor)});
+    statistics = Object.assign(statistics, {"numVehicle" : await getNumber(Vehicle)});
+    statistics = Object.assign(statistics, {"numTroller" : await getNumber(Troller)});
+    statistics = Object.assign(statistics, {"numRoute" : await getNumber(Route)});
+    res.send(statistics);
 });
 
 // TO-DO: render assign task
