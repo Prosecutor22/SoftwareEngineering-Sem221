@@ -1,8 +1,42 @@
 <!-- TO-DO: design task history -->
 <%- include("partials/header"); -%>
 
+
+<form action="/back-officer/task-history" method="post">
+    <select name="filter">
+        <option>Week</option>
+        <option>ID</option>
+        <option>Name</option>
+        <option>MCP</option>
+        <option>Troller</option>
+        <option>Route</option>
+        <option>Vehicle</option>
+    </select>
+    <input type="text" name="value">
+    <input type="submit" value="Find">
+</form>
+
 <table>
-    
+    <tr>
+        <th>Week</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>MCP</th>
+        <th>Troller</th>
+        <th>Route</th>
+        <th>Vehicle</th>
+    </tr> 
+	<% rows.forEach(function(row) { %>
+        <tr>
+            <th><%= row.Week %></th>
+            <th><%= row.ID %></th>
+            <th><%= row.Name %></th>
+            <th><%= row.MCP %></th>
+            <th><%= row.Troller %></th>
+            <th><%= row.Route %></th>
+            <th><%= row.Vehicle %></th>
+        </tr> 
+    <% }); %>
 </table>
 
 <%- include("partials/footer"); -%>

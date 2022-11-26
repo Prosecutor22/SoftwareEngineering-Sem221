@@ -8,6 +8,7 @@ var Janitor = require('../models').Janitor;
 var Vehicle = require('../models').Vehicle;
 var Troller = require('../models').Troller;
 var Route = require('../models').Route;
+var Histories = require('../models').Histories;
 
 var ensureLoggedIn = ensureLogIn('/signin');
 
@@ -45,7 +46,25 @@ router.get('/assign-task', ensureLoggedIn, function(req, res, next) {
 
 // TO-DO: render task history
 router.get('/task-history', ensureLoggedIn, function(req, res, next) {
+    Histories.find({})
+            .then(docs => res.render('task-history', { title: 'Task History' , rows: docs}))
+});
 
+router.post('/task-history', ensureLoggedIn, function(req, res, next) { 
+    if (req.body.value == ""){
+        Histories.find({})
+                .then(docs => res.render('task-history', { title: 'Task History' , rows: docs}));
+        return ;
+    }
+    filter = req.body.filter
+    value = req.body.value
+    var query = {};
+    query[filter] = value;
+    Histories.find(query)
+                .then(docs => {
+                    console.log(docs);
+                    res.render('task-history', { title: 'Task History' , rows: docs});
+                })
 });
 
 module.exports = router;

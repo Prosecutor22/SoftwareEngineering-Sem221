@@ -49,3 +49,15 @@ exports.vehicleSchema = new mongoose.Schema({
 });
 
 exports.Vehicle = mongoose.model('vehicles', exports.vehicleSchema);
+
+exports.historySchema = new mongoose.Schema({
+  Week: String,
+  ID: String,
+  Name: String,
+  MCP: String,
+  Troller: String,
+  Route: String,
+  Vehicle: String
+});
+
+exports.Histories = mongoose.model('histories', exports.historySchema);
