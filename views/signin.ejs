@@ -2,8 +2,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/css/signin.css' />
+    <title>
+      <%= title %>
+    </title>
+    <link rel='stylesheet' href='/public/css/signin.css' />
   </head>
   <body>
     <h1><%= title %></h1>
@@ -12,10 +14,32 @@
 				<p style="color: red;"><%= message %></p>
 			<% }); %>
 		<% } %>
-    <form action="/signin" method="post">
-      <input type="text" name="username">
-      <input type="password" name="password">
-      <input type="submit" value="Sign In">
+    <div class="login-image">
+      <img src="/public/pic/login.png" alt="Image">
+    </div>
+
+    <form id="signin-form" action="/signin" method="post">
+      <h1>Sign In</h1>
+      <div class="container">
+        <div class="imgcontainer">
+          <img src="/public/pic/login_avatar.png" alt="Avatar" class="avatar">
+        </div>
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+    
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+            
+        <button type="submit">Login</button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+      </div>
+    
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
     </form>
   </body>
 </html>
