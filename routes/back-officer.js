@@ -27,7 +27,6 @@ function getNumber(modelCollection){
 
 // TO-DO: render dashboard
 router.get('/dashboard', ensureLoggedIn, async function(req, res, next) {
-    console.log('================');
     statistics = {};
     statistics = Object.assign(statistics, {"numBackOficer" : await getNumber(BackOfficer)});
     statistics = Object.assign(statistics, {"numMCP" : await getNumber(MCP)});

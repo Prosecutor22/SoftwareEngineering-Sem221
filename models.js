@@ -17,7 +17,7 @@ exports.MCPSchema = new mongoose.Schema({
   location: String,
 });
 
-exports.MCP = mongoose.model('MCPs', exports.MCPSchema);
+exports.MCP = mongoose.model('mcps', exports.MCPSchema);
 
 
 exports.routeSchema = new mongoose.Schema({
