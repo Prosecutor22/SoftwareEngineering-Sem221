@@ -61,7 +61,6 @@ router.post('/task-history', ensureLoggedIn, function(req, res, next) {
     query[filter] = value;
     Histories.find(query)
                 .then(docs => {
-                    console.log(docs);
                     res.render('task-history', { title: 'Task History' , rows: docs});
                 })
 });
