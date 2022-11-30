@@ -21,19 +21,23 @@ exports.MCP = mongoose.model('mcps', exports.MCPSchema);
 
 
 exports.routeSchema = new mongoose.Schema({
-  // fill this
+  id: String,
+  path: String,
+  vehicle_id: String
 });
 
 exports.Route = mongoose.model('Routes', exports.routeSchema);
 
 exports.collectorSchema = new mongoose.Schema({
-  // fill this
+  id: String,
+  name: String
 });
 
 exports.Collector = mongoose.model('Collectors', exports.collectorSchema);
 
 exports.janitorSchema = new mongoose.Schema({
-  // fill this
+  id: String,
+  name: String
 });
 
 exports.Janitor = mongoose.model('janitors', exports.janitorSchema);
@@ -61,3 +65,14 @@ exports.historySchema = new mongoose.Schema({
 });
 
 exports.Histories = mongoose.model('histories', exports.historySchema);
+
+exports.taskSchema = new mongoose.Schema({
+  week: String,
+  id: String,
+  mcp: String,
+  troller: String,
+  route: String,
+  vehicle: String
+});
+
+exports.Tasks = mongoose.model('tasks', exports.taskSchema);
