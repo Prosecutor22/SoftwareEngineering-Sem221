@@ -40,29 +40,24 @@ router.get('/dashboard', ensureLoggedIn, async function(req, res, next) {
 
 // TO-DO: render assign task
 router.get('/assign-task', ensureLoggedIn, function(req, res, next) {
-
+    
 });
 
 // TO-DO: render task history
 router.get('/task-history', ensureLoggedIn, function(req, res, next) {
-    Histories.find({})
-            .then(docs => res.render('task-history', { title: 'Task History' , rows: docs}))
-});
-
-router.post('/task-history', ensureLoggedIn, function(req, res, next) { 
-    if (req.body.value == ""){
+    if (req.query.value == ''){
         Histories.find({})
-                .then(docs => res.render('task-history', { title: 'Task History' , rows: docs}));
-        return ;
+            .then(docs => res.render('task-history', { title: 'Task History' , rows: docs}))
     }
-    filter = req.body.filter
-    value = req.body.value
-    var query = {};
-    query[filter] = value;
-    Histories.find(query)
+    else {
+        var query = {};
+        query[req.query.filter] = req.query.value;
+        Histories.find(query)
                 .then(docs => {
                     res.render('task-history', { title: 'Task History' , rows: docs});
                 })
+    }
+    
 });
 
 module.exports = router;
