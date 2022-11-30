@@ -5,24 +5,24 @@
     <title>
       <%= title %>
     </title>
-    <link rel='stylesheet' href='/public/css/signin.css' />
+    <link rel='stylesheet' href='/css/signin.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
+    <!-- <h1><%= title %></h1> -->
     <% if (hasMessages) { %>
 			<% messages.forEach(function(message) { %>
 				<p style="color: red;"><%= message %></p>
 			<% }); %>
 		<% } %>
     <div class="login-image">
-      <img src="/public/pic/login.png" alt="Image">
+      <img src="pic/login.png" alt="Image">
     </div>
 
     <form id="signin-form" action="/signin" method="post">
       <h1>Sign In</h1>
       <div class="container">
         <div class="imgcontainer">
-          <img src="/public/pic/login_avatar.png" alt="Avatar" class="avatar">
+          <img src="pic/login_avatar.png" alt="Avatar" class="avatar">
         </div>
         <label for="username"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" name="username" required>
