@@ -1,4 +1,239 @@
 <!-- TO-DO: design assign task -->
-<%- include("partials/header"); -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
 
-<%- include("partials/footer"); -%>
+    <title>Task Assign</title>
+</head>
+<body>
+    <!-- Header box -->
+    <!-- <%- include("partials/header"); -%> -->
+    <header class="header"></header>
+
+
+    <!-- Navigator bar -->
+    <nav class="sidebar">
+      <div class="nav_position">
+          <p class="nav_name">MAIN MENU</p>
+          <div class="nav_list">
+              <a href="#" class="nav_link active">
+                  <i class="bx bx-grid-alt nav_icon"></i>
+                  <span>Dashboard</span>
+              </a>
+              <br>
+              <a href="#" class="nav_link active">
+                  <i class="bx bx-calendar nav_icon"></i>
+                  <span>Task Management</span>
+              </a>
+              <br>
+              <a href="#" class="nav_link active">
+                  <i class="bx bx-pencil nav_icon"></i>
+                  <span>Assign Task</span>
+              </a>
+              <br>
+              <a href="#" class="nav_link active">
+                  <i class="bx bx-data nav_icon"></i>
+                  <span>View History</span>
+              </a>
+              <br>
+              <a href="#" class="nav_link active">
+                  <i class="bx bx-message-dots nav_icon"></i>
+                  <span>Chat</span>
+              </a>
+          </div>
+
+          <p class="nav_name">OTHERS</p>
+          <div class="nav_list">
+              <a href="#" class="nav_link active">
+                  <i class="bx bxs-user-detail nav_icon"></i>
+                  <span>Profile</span>
+              </a>
+              <br>
+              <a href="#" class="nav_link active">
+                  <i class="bx bx-cog nav_icon"></i>
+                  <span>Setting</span>
+              </a>
+          </div>
+      </div>
+    </nav>
+
+
+    <!-- 1. Header: Title, 2 dropdown (Week, Actor) -->
+    <h1 class="title"><strong>Assign Task</strong></h1>
+
+    <!-- Week Dropdown-Button -->
+    <div class="dropdown">
+      <div class="select">
+        <span class="selected">Week</span>
+        <div class="caret"></div>
+      </div>
+      <ul class="menu">
+        <li class="active">Week</li>
+        <li>Week 1</li>
+        <li>Week 2</li>
+        <li>Week 3</li>
+      </ul>
+    </div>
+
+    <!-- Actor Dropdown-Button -->
+    <div class="dropdown">
+      <div class="select">
+        <span class="selected">Collector</span>
+        <div class="caret"></div>
+      </div>
+      <ul class="menu">
+        <li class="active">Collector</li>
+        <li>Janitor</li>
+      </ul>
+    </div>
+
+
+    <!-- 2. Body: 2 tables (Unassigned List, Avalable Table) -->
+    <!-- Unassigned -->
+    <div class="Unassigned">
+        <table>
+          <thead>
+            <tr>
+              <th>Unassigned</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="Actor"><button>Collector 1</button></td></tr>
+            <tr><td class="Actor"><button>Collector 2</button></td></tr>
+            <tr><td class="Actor"><button>Collector 3</button></td></tr>
+            <tr><td class="Actor"><button>Collector 4</button></td></tr>
+            <tr><td class="Actor"><button>Collector 5</button></td></tr>
+            <tr><td class="Actor"><button>Collector 6</button></td></tr>
+            <tr><td class="Actor"><button>Collector 7</button></td></tr>
+            <tr><td class="Actor"><button>Collector 8</button></td></tr>
+            <tr><td class="Actor"><button>Collector 9</button></td></tr>
+            <tr><td class="Actor"><button>Collector 10</button></td></tr>
+            <tr><td class="Actor"><button>Collector 11</button></td></tr>
+            <tr><td class="Actor"><button>Collector 12</button></td></tr>
+            <tr><td class="Actor"><button>Collector 13</button></td></tr>
+            <tr><td class="Actor"><button>Collector 14</button></td></tr>
+            <tr><td class="Actor"><button>Collector 15</button></td></tr>
+          </tbody>
+        </table>
+    </div>
+    <!-- Available Table -->
+    <div class="container">
+          <table>
+            <thead style="display:table-header-group">
+              <tr>
+                <th>Route</th>
+                <th>Vehicle</th>
+                <th>Assignee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col">Route ABC</td>
+                <td class="col">51-F1 123.45</td>
+                <td class="Actor"><button>Collector 5</button></td>
+              </tr>
+              <tr>
+                <td class="col">Route ABC</td>
+                <td class="col">51-F1 123.45</td>
+                <td class="Actor"><button>Collector 5</button></td>
+              </tr>
+              <tr>
+                <td class="col">Route ABC</td>
+                <td class="col">51-F1 123.45</td>
+                <td class="Actor"><button>Collector 5</button></td>
+              </tr>
+              <tr>
+                <td class="col">Route ABC</td>
+                <td class="col">51-F1 123.45</td>
+                <td class="Actor"><button>Collector 5</button></td>
+              </tr>
+              <tr>
+                <td class="col">Route ABC</td>
+                <td class="col">51-F1 123.45</td>
+                <td class="Actor"><button>Collector 5</button></td>
+              </tr>
+              <tr>
+                <td class="col">Route ABC</td>
+                <td class="col">51-F1 123.45</td>
+                <td class="Actor"><button>Collector 5</button></td>
+              </tr>
+              <tr>
+                <td class="col">Route ABC</td>
+                <td class="col">51-F1 123.45</td>
+                <td class="Actor"><button>Collector 5</button></td>
+              </tr>
+              <tr>
+                <td class="col">Route ABC</td>
+                <td class="col">51-F1 123.45</td>
+                <td class="Actor"><button>Collector 5</button></td>
+              </tr>
+              <tr>
+                <td class="col">Route ABC</td>
+                <td class="col">51-F1 123.45</td>
+                <td class="Actor"><button>Collector 5</button></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+
+
+    <!-- 3.Footer: Last modified, Same as last week, Save -->
+    <div class="footer">
+      <!-- Last modified -->
+      <label id="time">Last modified: 12:00AM 05/11/2022</label>
+
+      <!-- Same as last week -->
+      <label class="same-as-last-week">Same as last week
+        <input type="checkbox">
+        <span class="checkmark"></span>
+      </label>
+
+      <!-- Save -->
+      <button class="save" type="button" onclick="alert('You will successfully assign task!')">   
+        Save   
+      </button>
+    </div>
+
+    <!-- <%- include("partials/footer"); -%>       -->
+
+    <script>
+      // dropdown
+      const dropdowns = document.querySelectorAll('.dropdown')
+      dropdowns.forEach(dropdown =>{
+        const select = dropdown.querySelector('.select');
+        const caret = dropdown.querySelector('.caret');
+        const menu = dropdown.querySelector('.menu');
+        const options = dropdown.querySelectorAll('.menu li');
+        const selected = dropdown.querySelector('.selected');
+        
+        select.addEventListener('click',() => {
+          select.classList.toggle('select-clicked');
+          caret.classList.toggle('caret-rotate');
+          menu.classList.toggle('menu-open');
+        });
+
+        options.forEach(option => {
+          option.addEventListener('click', () => {
+            selected.innerText = option.innerText;
+            select.classList.remove('select-clicked');
+            caret.classList.remove('caret-rotate');
+            menu.classList.remove('menu-open');
+            options.forEach(option=>{
+              option.classList.remove('active');
+            });
+            option.classList.add('active');
+          });
+        });
+      });
+
+      // ...
+    </script>
+    
+</body>
+</html>
+
+
