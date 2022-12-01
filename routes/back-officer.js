@@ -39,9 +39,12 @@ router.get('/dashboard', async function(req, res, next) {
 router.get('/assign-task', async function(req, res, next) {
     var cur = req.query.week;
     var retAssign = {};
+    retAssign.week = cur;
+    var docsfileter = {};
+    docsfileter.week = cur;
     if (req.query.type == "collector") {
         docsUnassigned = await Collector.find({}, {id: 1, _id: 0});
-        schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {_id: 0});
+        schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {id: 1, route:1, vehicle:1, _id: 0});
         docsAssigned = await Tasks.find({week:cur, id:/^C[1-4]/}, {id: 1, _id: 0});
         var assign = [];
         docsUnassigned.forEach(element => {
@@ -49,10 +52,11 @@ router.get('/assign-task', async function(req, res, next) {
         });
         retAssign.Unassignee = assign;
         retAssign.Schedule = schedule;
+        docsfileter.type = 'Collector';
     }
     else {
         docsUnassigned = await Janitor.find({}, {id: 1, _id: 0});
-        schedule = await Tasks.find({week: cur, id:/^J[0-9]{1,2}/}, {_id: 0});
+        schedule = await Tasks.find({week: cur, id:/^J[0-9]{1,2}/}, {id: 1, mcp:1, troller:1, _id: 0});
         docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/}, {id: 1, _id: 0});
         var assign = [];
         docsUnassigned.forEach(element => {
@@ -60,7 +64,10 @@ router.get('/assign-task', async function(req, res, next) {
         });
         retAssign.Unassignee = assign;
         retAssign.Schedule = schedule;
+        docsfileter.type = 'Janitor';
     }
+    docsfileter.lastModified = await Tasks.find({week:cur}, {lastModified:1, _id: 0});
+    retAssign.filter = docsfileter;
     res.send(retAssign);
 });
 
