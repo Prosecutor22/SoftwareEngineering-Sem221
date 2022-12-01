@@ -32,8 +32,8 @@ router.get('/dashboard', ensureLoggedIn, async function(req, res, next) {
     statistics = Object.assign(statistics, {"numMCP" : await getNumber(MCP)});
     statistics = Object.assign(statistics, {"numCollector" : await getNumber(Collector)});
     statistics = Object.assign(statistics, {"numJanitor" : await getNumber(Janitor)});
-    statistics = Object.assign(statistics, {"numVehicle" : await getNumber(Vehicle)});
-    statistics = Object.assign(statistics, {"numTroller" : await getNumber(Troller)});
+    statistics = Object.assign(statistics, {"numVehicle" : await getNumber(Route)});
+    statistics = Object.assign(statistics, {"numTroller" : await getNumber(Janitor)});
     statistics = Object.assign(statistics, {"numRoute" : await getNumber(Route)});
     res.send(statistics);
 });
