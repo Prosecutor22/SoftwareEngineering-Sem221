@@ -1,17 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
-var BackOfficer = require('../models').BackOfficer;
 var MCP = require('../models').MCP;
 var Collector = require('../models').Collector;
 var Janitor = require('../models').Janitor;
-var Vehicle = require('../models').Vehicle;
-var Troller = require('../models').Troller;
 var Route = require('../models').Route;
-var Histories = require('../models').Histories;
 var Tasks = require('../models').Tasks;
 
 var ensureLoggedIn = ensureLogIn('/signin');
+router.use(ensureLoggedIn);
 
 function getNumber(modelCollection){
     return new Promise((resolve, reject) => {
@@ -26,9 +23,8 @@ function getNumber(modelCollection){
     });
 }
 
-router.get('/dashboard', ensureLoggedIn, async function(req, res, next) {
+router.get('/dashboard', async function(req, res, next) {
     statistics = {};
-    statistics = Object.assign(statistics, {"numBackOficer" : await getNumber(BackOfficer)});
     statistics = Object.assign(statistics, {"numMCP" : await getNumber(MCP)});
     statistics = Object.assign(statistics, {"numCollector" : await getNumber(Collector)});
     statistics = Object.assign(statistics, {"numJanitor" : await getNumber(Janitor)});
@@ -39,7 +35,8 @@ router.get('/dashboard', ensureLoggedIn, async function(req, res, next) {
 });
 
 // TO-DO: render assign task
-router.get('/assign-task', ensureLoggedIn, async function(req, res, next) {
+// query: week, type
+router.get('/assign-task', async function(req, res, next) {
     var cur = req.query.week;
     var retAssign = {};
     if (req.query.type == "collector") {
@@ -67,8 +64,23 @@ router.get('/assign-task', ensureLoggedIn, async function(req, res, next) {
     res.send(retAssign);
 });
 
+// TO-DO: save tasks in mongoDB
+// body: data (similar to data in assign-task.ejs)
+// send: result and last modified
+router.post('/assign-task');
+
+// TO-DO: find and return task data of given week's previous week
+// query: week
+// send: data (similar to data in assign-task.ejs)
+router.get('/assign-task/last-week');
+
+// TO-DO: create records of new week in tasks collection
+// send: new week created
+router.get('/assign-task/new-week');
+
 // TO-DO: render task history
-router.get('/task-history', ensureLoggedIn, async function(req, res, next) {
+// query: filters: [{field: ..., value:...}]
+router.get('/task-history', async function(req, res, next) {
     const coll = await Collector.find({});
     const jani = await Janitor.find({}); 
     var employee = coll.concat(jani)

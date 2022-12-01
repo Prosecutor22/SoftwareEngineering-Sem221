@@ -8,5 +8,4 @@
     -> when get response, update local data and corresponding state of drag and drop
     - when click "New week", send request to /back-officer/assign-task/new-week -> when get respone, 
     redirect to /back-officer/assign-task + url query parameter (week)
-    /back-officer/task-history + url query parameters created from filters
 */

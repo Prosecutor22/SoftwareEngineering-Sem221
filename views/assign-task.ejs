@@ -2,17 +2,18 @@
 <!--
 Data render from server: 
   title: string
+  weeks: [int]
   data: {
     unassigned: [string],
     schedule: [{
       route: string
       vehicle: string
       assignee: string
-    }] OR [(
+    }] OR [{
       troller: string
       mcp: string
       assignee: string
-    )]
+    }]
   }
   filter: {
     week: int
