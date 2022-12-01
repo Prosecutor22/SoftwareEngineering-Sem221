@@ -66,7 +66,9 @@ router.get('/assign-task', async function(req, res, next) {
         retAssign.Schedule = schedule;
         docsfileter.type = 'Janitor';
     }
-    docsfileter.lastModified = await Tasks.find({week:cur}, {lastModified:1, _id: 0});
+    var lastMod = await Tasks.find({week:cur}, {lastModified:1, startDay:1, _id: 0});
+    docsfileter.lastModified = lastMod.lastModified;
+    docsfileter.startDay = lastMod.startDay;
     retAssign.filter = docsfileter;
     res.send(retAssign);
 });
