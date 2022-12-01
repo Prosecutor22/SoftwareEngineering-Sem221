@@ -2,19 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var router = express.Router();
-var mongoose = require('mongoose');
-
-mongoose.connect('mongodb+srv://admin-nqk:quangkhanh09@cluster0.iqely.mongodb.net/uwc')
-  .then(() => console.log("Connect MongoDB successfully!"))
-  .catch(error => console.log(error))
-
-const backOfficerSchema = new mongoose.Schema({
-  username: String,
-  password: String,
-  name: String
-});
-
-const BackOfficer = mongoose.model('backofficers', backOfficerSchema);
+var BackOfficer = require('../models').BackOfficer;
 
 passport.use(new LocalStrategy(function verify(username, password, cb) {
     BackOfficer.findOne({username: username, password: password})
