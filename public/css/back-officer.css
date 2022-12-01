@@ -1,0 +1,500 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html
+{
+    font-family: Nunito;
+}
+
+.header{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    left: 0px;
+    top: 0px;
+
+    background: #FFFFFF;
+    border-bottom: 1px solid #E8E8E8;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+/* Sidebar */  
+.sidebar{
+    position: absolute;
+    width: 15%;
+    height: 700px;
+    left: 0px;
+    top: 100px;
+    background-color: #FFFFFF;
+}
+.nav_name{
+    margin-top: 16px;
+    padding: 0.5rem 0.5rem .5rem 1.5rem;
+    color: #686868;
+}
+.nav_list{
+    font-size: 50;
+}
+.nav{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden
+}
+.nav_link{
+    position: relative;
+    color: var(--first-color-light);
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 1rem;
+    padding: 0.5rem 0 .5rem 1.5rem;
+}
+.nav_link:hover{
+    color: #57AE09;
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+.nav_logo{
+    margin-bottom: 2rem;
+}
+.nav_logo-icon{
+    font-size: 1.25rem;
+    color: var(--white-color)
+}
+.nav_logo-name{
+    color: var(--white-color);
+    font-weight: 700;
+}
+.nav_icon{
+    font-size: 1.25rem;
+}
+.active{
+    text-decoration: none;
+}
+/* Content */
+.content{
+    position: absolute;
+    width: 70%;
+    height: 700px;
+    left: 15%;
+    top: 100px;
+    background-color: #A7FFBF;
+}
+/* main content */
+h1{
+    display: inline-block;
+    font-family: Poppins;
+    font-weight: 600;
+    padding: 3rem 0 3rem 3rem;
+}
+
+table{
+    margin-top: 20px;
+    margin-left: 5rem;
+    border-collapse: collapse;
+    width: 90%;
+}
+  
+td, th{
+    text-align: left;
+    padding: 10px;
+}
+/* time-navi */
+.time_navi
+{
+    position: absolute;
+    width: 15%;
+    height: 700px;
+    top: 100px;
+    right: 0;
+    background-color: #e8e5e5;
+}
+
+.dropbtn {
+    background-color: #4DC66F;
+    color: white;
+    padding: 1rem 2.2rem 1rem 2.2rem;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 13.4198px;
+}
+
+.dropdown {
+    margin-top: 20px;
+    margin-left: 25%;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    text-align: center;
+    background-color: #f9f9f9;
+    min-width: 124px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover{
+    background-color: #f1f1f1;
+    color: #57AE09;
+    font-weight: bold;
+}
+
+.dropdown:hover .dropdown-content{
+    display: grid;
+    align-items: center; 
+    justify-content: center;
+    
+}
+
+.dropdown:hover .dropbtn{
+    background-color: #4DC66F;
+}
+
+/* 1. Header: Title, 2 dropdown (Week, Actor) */
+/* Title: Assign Task */
+.title{
+    position: absolute;
+    width: 463px;
+    height: 60px;
+    left: 330px;
+    top: 70px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 42px;
+    /* identical to box height, or 88% */
+
+    font-feature-settings: 'salt' on, 'liga' off;
+}
+
+/* Week/Actor dropdown-button */
+.dropdown {
+    min-width: 5em;
+    position: relative;
+    margin: 2em;
+    width: 8em;
+    height: 67.8px;
+    left: 1050px;
+    top: 75px;
+}
+.dropdown * {
+    box-sizing: border-box;
+}
+.select{
+    background: #4DC66F;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px #2a2f3b solid;
+    border-radius: 0.5em;
+    padding: 1em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.select-clicked{
+    border: 2px #246235 solid;
+    box-shadow: 0 0 0.8em #246235;
+}
+.select:hover{
+    background: #41ad5f;
+}
+.caret{
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #fff;
+    transition: 0.3s;
+}
+.caret-rotate{
+    transform: rotate(180deg);
+}
+
+.menu{
+    list-style: none;
+    padding: 0.2em 0.5em;
+    background: #9feab3;
+    border: 1px #363a43 solid;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    color: #fff;
+    position: absolute;
+    top: 3em;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    opacity: 0;
+    display: none;
+    transition: 0.2s;
+    z-index: 1;
+}
+.menu li{
+    padding: 0.7em 0.5em;
+    margin: 0.3em 0;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+.menu li:hover{
+    background: #41ad5f;
+}
+.menu .active{
+    background: #246235;
+}
+.menu-open{
+    display: block;
+    opacity: 1;
+}
+
+
+
+/* 2. Body: 2 tables (Unassigned List, Avalable Table) */
+/* Unassigned List */
+.Unassigned table{
+    border: 1px #ccc solid;
+    box-shadow: 0 5px 10px #eee;
+    background-color: white;
+    text-align: center;
+
+    width: 200px; /* Set a width if you like */
+    height: 300px;
+    left: 400px;
+    top: 210px;
+    overflow-y: scroll;
+
+    position: absolute;
+}
+.Unassigned thead{
+    box-shadow: 0 5px 10px #eee;
+    position: sticky;
+    top: 0;
+}
+.Unassigned tbody{
+    height: 330px;
+    overflow-y: auto;
+    width: 100%;
+    display: block;
+}
+.Unassigned th{
+    padding: 1rem 2rem;
+    letter-spacing: 0.1rem;
+    /* Text */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 130%;
+    /* identical to box height, or 29px */
+
+    text-align: center;
+
+    color: #4DC66F;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+}
+.Unassigned td{
+    padding: 0.5rem 1rem;
+    padding-left: 37px;
+}
+
+/* Avaible Table */
+.container table{
+  border: 1px #ccc solid;
+  box-shadow: 0 5px 10px #eee;
+  background-color: white;
+  text-align: center;
+  /* overflow: hidden; */
+
+  width: 500px; /* Set a width if you like */
+  height: 400px;
+  left: 800px;
+  top: 210px;
+  overflow-y: auto;
+
+  position: absolute;
+
+}
+.container tbody {
+    display: block;
+    height: 330px;
+    overflow-y: auto;
+}
+.container tr {
+    display: block;
+}
+.container thead {
+    box-shadow: 0 5px 10px #eee;
+    position: sticky;
+    top: 0;
+}
+.container th {
+    padding: 1rem 2.45rem;
+    letter-spacing: 0.1rem;
+    /* Text */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 130%;
+    /* identical to box height, or 29px */
+
+    text-align: center;
+
+    color: #4DC66F;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+}
+
+.container td {
+    padding: 1rem 2rem;
+}
+.Actor {
+    padding: 0.5rem 1rem;
+    text-align: center;
+    /* text-emphasis-color: #000000; */
+}
+.Actor button{
+    background: #4DC66F;
+    border-radius: 0.5rem;
+    border: 0.2px #676363 solid;
+    font-size: medium;
+    padding: 6px;
+    align-items: center;
+}
+
+
+
+/* 3.Footer: Last modified, Same as last week, Save */
+/* Last modified */
+#time{
+    position: absolute;
+    left: 360px;
+    top: 650px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 30px;
+    /* identical to box height */
+    color: #000000;
+}
+
+/* The same-as-last-week checkbox */
+/* Customize the label */
+.same-as-last-week {
+    display: block;
+    position: absolute;
+    left: 820px;
+    top: 650px;
+    padding-left: 35px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 30px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  
+/* Hide the browser's default checkbox */
+.same-as-last-week input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border-radius: 0.4rem;
+}
+/* On mouse-over, add a grey background color */
+.same-as-last-week:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+/* When the checkbox is checked, add a green background */
+.same-as-last-week input:checked ~ .checkmark {
+    background-color: #4DC66F;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/* Show the checkmark when checked */
+.same-as-last-week input:checked ~ .checkmark:after {
+    display: block;
+}  
+/* Style the checkmark/indicator */
+.same-as-last-week .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Save button */
+.save{
+    position: absolute;
+    width: 80px;
+    height: 30px;
+    left: 1247px;
+    top: 650px;
+
+    background: #4DC66F;
+    border-radius: 1rem;
+    border: 1.5px #2a2f3b solid;
+    font-size: 15px;
+    padding: 6px;
+    align-items: center;
+    color: #fff;
+    box-shadow: #676363;
+    cursor: pointer;
+}

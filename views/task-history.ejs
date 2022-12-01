@@ -1,42 +1,131 @@
 <!-- TO-DO: design task history -->
-<%- include("partials/header"); -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <%- include("partials/header"); -%>
+    <!-- CONTAINER -->
+    <div class="container">
+        <!-- navigator -->
+        <nav class="sidebar">
+            <div class="nav_position">
+                <p class="nav_name">MAIN MENU</p>
+                <div class="nav_list">
+                    <a href="#" class="nav_link active">
+                        <i class='bx bx-grid-alt nav_icon'></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <br>
+                    <a href="#" class="nav_link active">
+                        <i class='bx bx-calendar nav_icon'></i>
+                        <span>Task Management</span>
+                    </a>
+                    <br>
+                    <a href="#" class="nav_link active">
+                        <i class='bx bx-pencil nav_icon'></i>
+                        <span>Assign Task</span>
+                    </a>
+                    <br>
+                    <a href="#" class="nav_link active">
+                        <i class='bx bx-data nav_icon'></i>
+                        <span>View History</span>
+                    </a>
+                    <br>
+                    <a href="#" class="nav_link active">
+                        <i class='bx bx-message-dots nav_icon'></i>
+                        <span>Chat</span>
+                    </a>
+                </div>
 
-
-<form action="/back-officer/task-history" method="get">
-    <select name="filter">
-        <option>Week</option>
-        <option>ID</option>
-        <option>Name</option>
-        <option>MCP</option>
-        <option>Troller</option>
-        <option>Route</option>
-        <option>Vehicle</option>
-    </select>
-    <input type="text" name="value">
-    <input type="submit" value="Find">
-</form>
-
-<table>
-    <tr>
-        <th>Week</th>
-        <th>ID</th>
-        <th>Name</th>
-        <th>MCP</th>
-        <th>Troller</th>
-        <th>Route</th>
-        <th>Vehicle</th>
-    </tr> 
-	<% rows.forEach(function(row) { %>
-        <tr>
-            <th><%= row.week %></th>
-            <th><%= row.id %></th>
-            <th><%= row.name %></th> 
-            <th><%= row.mcp %></th>
-            <th><%= row.troller %></th>
-            <th><%= row.route %></th>
-            <th><%= row.vehicle %></th>
-        </tr> 
-    <% }); %>
-</table>
-
-<%- include("partials/footer"); -%>
+                <p class="nav_name">OTHERS</p>
+                <div class="nav_list">
+                    <a href="#" class="nav_link active">
+                        <i class='bx bxs-user-detail nav_icon'></i>
+                        <span>Profile</span>
+                    </a>
+                    <br>
+                    <a href="#" class="nav_link active">
+                        <i class='bx bx-cog nav_icon'></i>
+                        <span>Setting</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- task history main content -->
+        <div class="content">
+            <h1>TASK HISTORY</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>MCP</th>
+                        <th>Troller</th>
+                        <th>Route</th>
+                        <th>Vehicle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>J1</td>
+                        <td>Name</td>
+                        <td>MCP</td>
+                        <td>Troller</td>
+                        <td>Route</td>
+                        <td>Vehicle</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>J2</td>
+                        <td>Name</td>
+                        <td>MCP</td>
+                        <td>Troller</td>
+                        <td>Route</td>
+                        <td>Vehicle</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>C1</td>
+                        <td>Name</td>
+                        <td>MCP</td>
+                        <td>Troller</td>
+                        <td>Route</td>
+                        <td>Vehicle</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>C2</td>
+                        <td>Name</td>
+                        <td>MCP</td>
+                        <td>Troller</td>
+                        <td>Route</td>
+                        <td>Vehicle</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- time -->
+        <div class="time_navi">
+            <div class="dropdown">
+                <button type="button" class="dropbtn">WEEK</button>
+                <div class="dropdown-content">
+                    <a href="#">Collector</a>
+                    <a href="#">Janitor</a>
+                    <a href="#">Vehicle</a>
+                    <a href="#">Route</a>
+                    <a href="#">Troller</a>
+                    <a href="#">MCP</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <%- include("partials/footer"); -%> -->
+</body>
+</html>

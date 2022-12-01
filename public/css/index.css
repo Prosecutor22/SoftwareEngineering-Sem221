@@ -3,6 +3,172 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+#homepage-header{
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 80px;
+  background-color: white;
+  z-index: 1;
+}
+
+#homepage-header .logo{
+  width: 150px;
+  height: 80px;
+  position:relative;
+}
+
+#homepage-header .logo img{
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 8px;
+  left: 0px;
+}
+
+#homepage-header .logo h3{
+  color: #57AE09;
+  font-size: 22px;
+  font-weight: 600;
+  position: absolute;
+  top: 0px;
+  left: 55px;
+  margin: 15px;
+}
+
+#homepage-header a{
+  text-align: center;
+  text-decoration: none;
+  width: 95px;
+  height: 40px;
+  border:solid 2px;
+  border-color: #4DC66F;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#homepage-header a.register{
+  position: absolute;
+  top: 15px;
+  right: 220px;
+  color: #4DC66F;
+  background-color: white;  
+}
+
+#homepage-header a.signin{
+  position: absolute;
+  top: 15px;
+  right: 90px;
+  color: white;
+  background-color: #4DC66F;
+}
+
+#homepage-header a.signin div,
+ #homepage-header a.register div{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+.content {
+  width: 400px;
+  position: absolute;
+  left: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.content .title h1{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 45px;
+  font-weight: bold;
+}
+
+.content .message p{
+  text-align: justify;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.home-picture{
+  z-index: -1;
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  transform: translateY(-50%);
+}
+
+.home-picture img{
+  width: 800px;
+  height: 500px;
+}
+
+#footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: left;
+  height: 130px;
+}
+
+#footer .first-block{
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  transform: translateY(-50%);
+  width: 130px;
+}
+
+#footer .first-block .logo{
+  width: 130px;
+  height: 50px;
+}
+
+#footer .first-block .logo img{
+  width: 40px;
+  height: 40px;
+}
+
+#footer .first-block .logo h3{
+  position: absolute;
+  left: 40px;
+  color: #57AE09;
+  bottom: 0px;
+}
+
+#footer .first-block p{
+  display: block;
+  position: absolute;
+  top: 30px;
+  width: 100%;
+}
+
+#footer .second-block{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%);
+  width: 130px;
+}
+
+#footer .second-block a{
+  text-decoration: none;
+  color: black;
+}
+
+#footer .social{
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+}
+
+#footer .social img{
+  width: 40px;
+  height: 40px;
 }
