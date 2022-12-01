@@ -1,4 +1,25 @@
 <!-- TO-DO: design assign task -->
+<!--
+Data render from server: 
+  title: string
+  data: {
+    unassigned: [string],
+    schedule: [{
+      route: string
+      vehicle: string
+      assignee: string
+    }] OR [(
+      troller: string
+      mcp: string
+      assignee: string
+    )]
+  }
+  filter: {
+    week: int
+    type: string
+    lastModified: string/datetime
+  }
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -232,6 +253,7 @@
 
       // ...
     </script>
+    <script src="/js/assign-task.js"></script>
     
 </body>
 </html>

@@ -1,4 +1,21 @@
 <!-- TO-DO: design task history -->
+<!--
+Data render from server: 
+    title: string
+    rows: [{
+        week: int
+        id: int
+        name: string
+        mcp: string
+        troller: string
+        route: string
+        vehicle: string
+    }]
+    filters: [{
+        field: string
+        value: string
+    }]
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,5 +144,6 @@
         </div>
     </div>
     <!-- <%- include("partials/footer"); -%> -->
+    <script src="/js/task-history.js"></script>
 </body>
 </html>
