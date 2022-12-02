@@ -84,7 +84,31 @@ router.post('/assign-task');
 // TO-DO: find and return task data of given week's previous week
 // query: week
 // send: data (similar to data in assign-task.ejs)
-router.get('/assign-task/last-week');
+router.get('/assign-task/last-week', async function(req, res, next){
+    var cur = req.query.week - 1;
+    var employee = req.query.employee;
+    var retAssign = {};
+    var data = {};
+    var docsfilter = {};
+    var stt = Tasks.find({week: cur})[0].status;
+    if (cur < 1 || stt != "done"){
+        res.status(404);
+    }
+    retAssign.week = cur;
+    if (employee === "collector"){
+        data.unassigned =[];
+        data.schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {id: 1, route:1, vehicle:1, _id: 0});
+    }
+    else {
+        data.unassigned =[];
+        data.docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/}, {id: 1, _id: 0});
+    }
+    retAssign.data = data;
+    docsfilter.week = cur;
+    docsfilter.type = employee;
+    retAssign.filter = docsfilter;
+    res.send(retAssign);
+});
 
 // TO-DO: create records of new week in tasks collection
 // send: new week created
