@@ -120,28 +120,36 @@ router.get('/assign-task/new-week', async function(req, res, next){
 
 // TO-DO: render task history
 // query: filters: [{field: ..., value:...}]
-router.get('/task-history', async function(req, res, next) {
+router.get('/task-history', ensureLoggedIn, async function(req, res, next) {
     const coll = await Collector.find({});
     const jani = await Janitor.find({}); 
     var employee = coll.concat(jani)
-    if (req.query.filter == undefined || req.query.value == ''){
-        var docs = await Tasks.find({});
-        docs.forEach(doc => doc.name = employee.find(element => element.id == doc.id).name);
-        res.render('task-history', { title: 'Task History' , rows: docs})
+    if (req.query.filters === undefined || req.query.filters === '[]'){
+        var rows = await Tasks.find({});
+        rows.forEach(row => row.name = employee.find(element => element.id == row.id).name);
+        res.render('task-history', { title: 'Task History' , rows: docs, filters: []})
     }
     else {
-        filter = req.query.filter.toLowerCase()
-        value = req.query.value
-        if (filter == 'name') {
-            filter = 'id'
-            arID = employee.filter(element => element.name == value).map(element => element.id);
-            value = {$in: arID}
-        }
         var query = {};
-        query[filter] = value;
+        var filterArr = req.query.filters.substring(1,req.query.filters.length-1).replaceAll('},{', '};{').split(';');
+        var filters = [];
+        for (let i = 0; i < filterArr.length; ++i){
+            var tmp = filterArr[i].split(/[,:{}]/).filter(e => e != ''); // ['field', 'Week', 'value', '1']
+            if (tmp[3] == '') continue;
+            if (tmp[1].toLowerCase() == 'name') {
+                var filter = 'id';
+                var arID = employee.filter(element => element.name == value).map(element => element.id);
+                var value = {$in: arID};
+                query[filter] = value;
+            }
+            else {
+                query[tmp[1].toLowerCase()] = tmp[3];
+            }
+            filters.push({field:tmp[1],value:tmp[3]})
+        }
         var docs = await Tasks.find(query);
         docs.forEach(doc => doc.name = employee.find(element => element.id == doc.id).name);
-        res.render('task-history', { title: 'Task History' , rows: docs})
+        res.render('task-history', { title: 'Task History' , rows: docs, filters: filters})
     }
 });
 
