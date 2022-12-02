@@ -84,9 +84,30 @@ router.get('/assign-task', async function(req, res, next) {
 });
 
 // TO-DO: save tasks in mongoDB
-// body: data (similar to data in assign-task.ejs)
+// body: data (similar to data in assign-task.ejs), week
 // send: result and last modified
-router.post('/assign-task');
+router.post('/assign-task', async function(req, res, next){
+    var tasks = req.body.data.schedule;
+    var assignID;
+    if (req.query.type === 'collector'){
+        assignID = Collector.find({}, {id: 1, _id: 0})
+    }
+    else {
+        assignID = Janitor.find({}, {id: 1, _id: 0})
+    }
+    Tasks.deleteMany({week: req.query.week, id: {$in: assignID}});
+    tasks.forEach(t => {
+        var task = new Tasks({week: req.query.week, id: t.assignee, route: t.route, vehicle: t.vehicle});
+        task.save(function(err){
+            if (err) {
+                res.status(400).send("Cannot saving");
+            }
+        });
+    });
+    var currentDate = new Date();
+    weekTime.updateOne({week: parseInt(req.query.week)}, {lastModified: currentDate});
+    res.send(currentDate)
+});
 
 // TO-DO: find and return task data of given week's previous week
 // query: week
