@@ -37,10 +37,18 @@ router.get('/signin', function(req, res, next) {
 
 // TO-DO: handle signin with passport.js
 router.post('/signin', passport.authenticate('local', {
-    successReturnToOrRedirect: '/back-officer/dashboard',
+    keepSessionInfo: true,
     failureRedirect: '/signin',
     failureMessage: true
-}));
+}), (req, res) => {
+    var redirectTo = 'back-officer/dashboard'; // default redirect value
+    if (req.session.reqUrl) {
+        redirectTo = req.session.reqUrl; 
+        delete req.session.reqUrl;
+    };
+
+    res.redirect(redirectTo);
+});
 
 // TO-DO: handle signout
 router.post('/signout', function(req, res, next) {

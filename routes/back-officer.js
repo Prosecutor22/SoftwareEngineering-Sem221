@@ -1,5 +1,4 @@
 var express = require('express');
-const { restart } = require('nodemon');
 const datelib = require('date-and-time')
 var router = express.Router();
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
@@ -10,7 +9,15 @@ var Route = require('../models').Route;
 var Tasks = require('../models').Tasks;
 var weekTime = require('../models').weekTime;
 
+const sessionUrl = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        req.session.reqUrl = req.originalUrl;
+    }
+    next();
+}
+
 var ensureLoggedIn = ensureLogIn('/signin');
+router.use(sessionUrl);
 router.use(ensureLoggedIn);
 
 function getNumber(modelCollection){
@@ -28,12 +35,12 @@ function getNumber(modelCollection){
 
 router.get('/dashboard', async function(req, res, next) {
     statistics = {};
-    statistics = Object.assign(statistics, {"numMCP" : await getNumber(MCP)});
-    statistics = Object.assign(statistics, {"numCollector" : await getNumber(Collector)});
-    statistics = Object.assign(statistics, {"numJanitor" : await getNumber(Janitor)});
-    statistics = Object.assign(statistics, {"numVehicle" : await getNumber(Route)});
-    statistics = Object.assign(statistics, {"numTroller" : await getNumber(Janitor)});
-    statistics = Object.assign(statistics, {"numRoute" : await getNumber(Route)});
+    statistics.numMCP = await getNumber(MCP);
+    statistics.numCollector = await getNumber(Collector);
+    statistics.numJanitor = await getNumber(Janitor);
+    statistics.numVehicle = await getNumber(Route);
+    statistics.numTroller = await getNumber(Janitor);
+    statistics.numRoute = await getNumber(Route);
     res.send(statistics);
 });
 
@@ -123,58 +130,43 @@ router.get('/assign-task/new-week', async function(req, res, next){
             res.status(400).send("Cannot create new week");
         }
     });
-    for (let i = 1; i < 23; ++i) {
-        var jani = new Tasks({week: latestWeek, id: "J" + i.toString()});
-        jani.save(function(err){
+
+    const collectors = await Collector.find({});
+    collectors.forEach(collector => {
+        var task = new Tasks({week: latestWeek, id: collector.id, route: null, vehicle: null});
+        task.save(function(err){
             if (err) {
-                res.status(400).send("Cannot create new week");
+                res.status(400).send("Cannot create task of new week");
             }
         });
-    }
-    for (let i = 1; i < 5; ++i) {
-        var collec = new Tasks({week: latestWeek, id: "C" + i.toString()});
-        collec.save(function(err){
+    });
+
+    const janitors = await Janitor.find({});
+    janitors.forEach(janitor => {
+        var task = new Tasks({week: latestWeek, id: janitor.id, mcp: null, troller: null});
+        task.save(function(err){
             if (err) {
-                res.status(400).send("Cannot create new week");
+                res.status(400).send("Cannot create task of new week");
             }
         });
-    }
-    res.send("create new week successfully");
+    });
+
+    res.send({newWeek: latestWeek});
 });
 
 // TO-DO: render task history
-// query: filters: [{field: ..., value:...}]
-router.get('/task-history', ensureLoggedIn, async function(req, res, next) {
-    const coll = await Collector.find({});
-    const jani = await Janitor.find({}); 
-    var employee = coll.concat(jani)
-    if (req.query.filters === undefined || req.query.filters === '[]'){
-        var rows = await Tasks.find({});
-        rows.forEach(row => row.name = employee.find(element => element.id == row.id).name);
-        res.render('task-history', { title: 'Task History' , rows: docs, filters: []})
-    }
-    else {
-        var query = {};
-        var filterArr = req.query.filters.substring(1,req.query.filters.length-1).replaceAll('},{', '};{').split(';');
-        var filters = [];
-        for (let i = 0; i < filterArr.length; ++i){
-            var tmp = filterArr[i].split(/[,:{}]/).filter(e => e != ''); // ['field', 'Week', 'value', '1']
-            if (tmp[3] == '') continue;
-            if (tmp[1].toLowerCase() == 'name') {
-                var filter = 'id';
-                var arID = employee.filter(element => element.name == value).map(element => element.id);
-                var value = {$in: arID};
-                query[filter] = value;
-            }
-            else {
-                query[tmp[1].toLowerCase()] = tmp[3];
-            }
-            filters.push({field:tmp[1],value:tmp[3]})
-        }
-        var docs = await Tasks.find(query);
-        docs.forEach(doc => doc.name = employee.find(element => element.id == doc.id).name);
-        res.render('task-history', { title: 'Task History' , rows: docs, filters: filters})
-    }
+// query: {(field): (value)}
+router.get('/task-history', async function(req, res, next) {
+    const collectors = await Collector.find({});
+    const janitors = await Janitor.find({}); 
+    var employees = collectors.concat(janitors);
+    var rows = await Tasks.find(req.query);
+    rows = rows.map(row => {
+        row = row.toObject();
+        row.name = employees.find(employee => employee.id === row.id).name;
+        return row;
+    });
+    res.render('task-history', { title: 'Task History' , rows: rows, filters: req.query});
 });
 
 module.exports = router;
