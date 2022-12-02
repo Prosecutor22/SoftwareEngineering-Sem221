@@ -118,9 +118,10 @@ router.get('/assign-task/last-week', async function(req, res, next){
     var retAssign = {};
     var data = {};
     var docsfilter = {};
-    var stt = Tasks.find({week: cur})[0].status;
+    var stt = await (await weekTime.find({})).at(0).status
     if (cur < 1 || stt != "done"){
-        res.status(404);
+        res.status(404).send('Cannot get last week');
+        return ;
     }
     retAssign.week = cur;
     if (employee === "collector"){
