@@ -76,3 +76,12 @@ exports.taskSchema = new mongoose.Schema({
 });
 
 exports.Tasks = mongoose.model('tasks', exports.taskSchema);
+
+exports.weekSchema = new mongoose.Schema({
+  week: Number,
+  status: String,
+  lastModified: Date,
+  startDay: Date
+});
+
+exports.weekTime = mongoose.model('week_timestamps', exports.weekSchema);

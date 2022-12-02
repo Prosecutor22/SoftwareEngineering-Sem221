@@ -1,4 +1,6 @@
 var express = require('express');
+const { restart } = require('nodemon');
+const datelib = require('date-and-time')
 var router = express.Router();
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
 var MCP = require('../models').MCP;
@@ -6,6 +8,7 @@ var Collector = require('../models').Collector;
 var Janitor = require('../models').Janitor;
 var Route = require('../models').Route;
 var Tasks = require('../models').Tasks;
+var weekTime = require('../models').weekTime;
 
 var ensureLoggedIn = ensureLogIn('/signin');
 router.use(ensureLoggedIn);
@@ -85,7 +88,35 @@ router.get('/assign-task/last-week');
 
 // TO-DO: create records of new week in tasks collection
 // send: new week created
-router.get('/assign-task/new-week');
+router.get('/assign-task/new-week', async function(req, res, next){
+    const weeklist = await weekTime.find({}).sort({week: -1});
+    const latestWeek = weeklist[0].week + 1;
+    var startWeek = datelib.addDays(weeklist[0].startDay, 7);
+    var currentDate = new Date();
+    var newWeek = new weekTime({week: latestWeek, status: "in-progress", lastModified: currentDate, startDay: startWeek});
+    newWeek.save(function(err){
+        if (err) {
+            res.status(400).send("Cannot create new week");
+        }
+    });
+    for (let i = 1; i < 23; ++i) {
+        var jani = new Tasks({week: latestWeek, id: "J" + i.toString()});
+        jani.save(function(err){
+            if (err) {
+                res.status(400).send("Cannot create new week");
+            }
+        });
+    }
+    for (let i = 1; i < 5; ++i) {
+        var collec = new Tasks({week: latestWeek, id: "C" + i.toString()});
+        collec.save(function(err){
+            if (err) {
+                res.status(400).send("Cannot create new week");
+            }
+        });
+    }
+    res.send("create new week successfully");
+});
 
 // TO-DO: render task history
 // query: filters: [{field: ..., value:...}]

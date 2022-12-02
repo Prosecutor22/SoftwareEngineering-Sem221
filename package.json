@@ -10,6 +10,7 @@
   "dependencies": {
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "~1.4.4",
+    "date-and-time": "^2.4.1",
     "debug": "~2.6.9",
     "ejs": "~3.1.8",
     "express": "~4.16.1",
