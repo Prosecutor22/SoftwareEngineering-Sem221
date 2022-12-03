@@ -53,26 +53,16 @@ router.get('/assign-task', async function(req, res, next) {
     var docsfileter = {};
     docsfileter.week = cur;
     if (req.query.type == "collector") {
-        docsUnassigned = await Collector.find({}, {id: 1, _id: 0});
         schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {id: 1, route:1, vehicle:1, _id: 0});
-        docsAssigned = await Tasks.find({week:cur, id:/^C[1-4]/}, {id: 1, _id: 0});
-        var assign = [];
-        docsUnassigned.forEach(element => {
-            if (docsAssigned.find(e => e.id === element.id) === undefined) assign.push(element.id);
-        });
-        retAssign.Unassignee = assign;
+        docsAssigned = await Tasks.find({week:cur, id:/^C[1-4]/, vehicle: null}, {id: 1, _id: 0});
+        retAssign.Unassignee = docsUnassigned;
         retAssign.Schedule = schedule;
         docsfileter.type = 'Collector';
     }
     else {
-        docsUnassigned = await Janitor.find({}, {id: 1, _id: 0});
         schedule = await Tasks.find({week: cur, id:/^J[0-9]{1,2}/}, {id: 1, mcp:1, troller:1, _id: 0});
-        docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/}, {id: 1, _id: 0});
-        var assign = [];
-        docsUnassigned.forEach(element => {
-            if (docsAssigned.find(e => e.id === element.id) === undefined) assign.push(element.id);
-        });
-        retAssign.Unassignee = assign;
+        docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/, troller: null}, {id: 1, _id: 0});
+        retAssign.Unassignee = docsUnassigned;
         retAssign.Schedule = schedule;
         docsfileter.type = 'Janitor';
     }
@@ -90,7 +80,7 @@ router.get('/assign-task', async function(req, res, next) {
 router.post('/assign-task', async function(req, res, next){
     var tasks = req.body.data.schedule;
     var assignID;
-    if (req.query.type === 'collector'){
+    if (req.query.type === 'Collector'){
         assignID = Collector.find({}, {id: 1, _id: 0})
     }
     else {
@@ -125,7 +115,7 @@ router.get('/assign-task/last-week', async function(req, res, next){
         return ;
     }
     retAssign.week = cur;
-    if (employee === "collector"){
+    if (employee === "Collector"){
         data.unassigned =[];
         data.schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {id: 1, route:1, vehicle:1, _id: 0});
     }
