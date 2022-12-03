@@ -94,12 +94,12 @@ h1{
     padding: 3rem 0 3rem 3rem;
 }
 
-table .history_tb{
+/* .history_tb{
     margin-top: 20px;
     margin-left: 5rem;
     border-collapse: collapse; 
     width: 90%;
-}
+} */
   
 .history_tb td, th{
     text-align: left;
