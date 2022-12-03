@@ -48,6 +48,14 @@ router.get('/dashboard', async function(req, res, next) {
 // query: week, type
 router.get('/assign-task', async function(req, res, next) {
     var cur = req.query.week;
+    if (!cur) {
+        var curDate = new Date();
+        var curWeek = await (await weekTime.find({startDay: {$lte: curDate}}).sort({week: -1})).at(0);
+        if (curWeek.status != 'done'){
+            await weekTime.updateMany({week: {$lte: curWeek.week}}, {status: 'done'});
+        }
+        cur = curWeek.week;
+    }
     var retAssign = {};
     retAssign.week = cur;
     var docsfileter = {};
@@ -79,22 +87,21 @@ router.get('/assign-task', async function(req, res, next) {
 // send: result and last modified
 router.post('/assign-task', async function(req, res, next){
     var tasks = req.body.data.schedule;
-    var assignID;
     if (req.query.type === 'Collector'){
-        assignID = Collector.find({}, {id: 1, _id: 0})
+        assignID = await Collector.find({}, {id: 1, _id: 0});
+        await Tasks.updateMany({week: req.query.week, id: {$in: assignID}}, {route: null, vehicle: null});
+        tasks.forEach(async (t) => {
+            await Tasks.updateOne({week: req.query.week, id: t.assignee}, {route: t.route, vehicle: t.vehicle})
+        });
     }
     else {
-        assignID = Janitor.find({}, {id: 1, _id: 0})
-    }
-    Tasks.deleteMany({week: req.query.week, id: {$in: assignID}});
-    tasks.forEach(t => {
-        var task = new Tasks({week: req.query.week, id: t.assignee, route: t.route, vehicle: t.vehicle});
-        task.save(function(err){
-            if (err) {
-                res.status(400).send("Cannot saving");
-            }
+        assignID = await Janitor.find({}, {id: 1, _id: 0})
+        Tasks.updateMany({week: req.query.week, id: {$in: assignID}}, {mcp: null, troller: null});
+        tasks.forEach(async (t) => {
+            await Tasks.updateOne({week: req.query.week, id: t.assignee}, {mcp: t.mcp, troller: t.troller});
         });
-    });
+    }
+
     var currentDate = new Date();
     weekTime.updateOne({week: parseInt(req.query.week)}, {lastModified: currentDate});
     res.send(currentDate)
