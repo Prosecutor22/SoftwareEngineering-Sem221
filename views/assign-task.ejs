@@ -86,21 +86,21 @@ Data render from server:
     <h1 class="title"><strong>Assign Task</strong></h1>
 
       <!-- Create Button -->
-      <button class="create" type="button">   
+      <button class="create" type="button" id="newWeek">   
         Create   
       </button>
 
     <!-- Week Dropdown-Button -->
     <div class="dropdown">
       <div class="select">
-        <span class="selected">Week</span>
+        <span class="selected">Week 1</span>
         <div class="caret"></div>
       </div>
-      <ul class="menu">
-        <li class="active">Week</li>
-        <li>Week 1</li>
+      <ul class="menu menuWeek">
+        <li class="active">Week 1</li>
         <li>Week 2</li>
         <li>Week 3</li>
+        <li>Week 4</li>
       </ul>
     </div>
 
@@ -110,7 +110,7 @@ Data render from server:
         <span class="selected">Collector</span>
         <div class="caret"></div>
       </div>
-      <ul class="menu">
+      <ul class="menu menuType">
         <li class="active">Collector</li>
         <li>Janitor</li>
       </ul>
@@ -145,7 +145,7 @@ Data render from server:
                 <th>Assignee</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="schedule">
               <tr>
                 <td class="col">Route ABC</td>
                 <td class="col">51-F1 123.45</td>
@@ -204,12 +204,12 @@ Data render from server:
 
       <!-- Same as last week -->
       <label class="same-as-last-week">Same as last week
-        <input type="checkbox">
+        <input type="checkbox" id="same">
         <span class="checkmark"></span>
       </label>
 
       <!-- Save -->
-      <button class="save" type="button" onclick="alert('You will successfully assign task!')">   
+      <button class="save" type="button" id="save">   
         Save   
       </button>
     </div>   
