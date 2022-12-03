@@ -94,17 +94,27 @@ h1{
     padding: 3rem 0 3rem 3rem;
 }
 
-table{
+table .history_tb{
     margin-top: 20px;
     margin-left: 5rem;
     border-collapse: collapse; 
     width: 90%;
 }
   
-td, th{
+.history_tb td, th{
     text-align: left;
     padding: 10px;
 }
+
+.history_tb td{
+    width: 130px;
+}
+
+.history_tb td:hover{
+    color: #57AE09;
+    font-weight: 600;
+}
+
 /* time-navi */
 .time_navi
 {
@@ -167,7 +177,93 @@ td, th{
 .dropdown:hover .dropbtn{
     background-color: #4DC66F;
 }
+/* DASHBOARD_CSS */
+.board{
+    margin-left: 7rem;
+}
+.ele{
+    margin-bottom: 3rem;
+}
+.box{
+    display: inline-block;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 12px 12px 12px 20px;
+    gap: 16px;
+    width: 204px;
+    height: 136px;
+    margin-right: 1rem;
 
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+.ele_11{
+    background-color: #e7ffec;
+}
+.ele_12{
+    background-color: #e8f0fb;
+}
+.ele_21{
+    background-color: #fdebf9;
+}
+.ele_22{
+    background-color: #fdfceb;
+}
+.ele_31{
+    background-color: #f2ecc9;
+}
+.ele_32{
+    background-color: #fcf9b9;
+}
+.ele_name{
+    display: flex;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 42px;
+    /* identical to box height, or 175% */
+    font-feature-settings: 'salt' on, 'liga' off;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+}
+.box_content{
+    /* Available Position */
+    width: 172px;
+    height: 28px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+    margin: 1.25rem 0 0 0;
+    /* identical to box height, or 156% */
+    font-feature-settings: 'salt' on, 'liga' off;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+.box_count{
+    width: 172px;
+    height: 28px;
+    font-size: 36px;
+    font-weight: 600;
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+/*  */
 /* 1. Header: Title, 2 dropdown (Week, Actor) */
 /* Title: Assign Task */
 .title{
@@ -183,7 +279,6 @@ td, th{
     font-size: 48px;
     line-height: 42px;
     /* identical to box height, or 88% */
-
     font-feature-settings: 'salt' on, 'liga' off;
 }
 

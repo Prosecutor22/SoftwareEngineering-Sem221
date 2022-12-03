@@ -75,7 +75,7 @@ Data render from server:
         <!-- task history main content -->
         <div class="content">
             <h1>TASK HISTORY</h1>
-            <table class="history" style="left: 0">
+            <table class="history_tb" style="left: 65px">
                 <thead>
                     <tr>
                         <th>Week</th>
@@ -99,15 +99,6 @@ Data render from server:
                             <td><%= row.vehicle %></td>
                         </tr> 
                     <% }); %>
-                    <tr>
-                        <td>4</td>
-                        <td>C2</td>
-                        <td>Name</td>
-                        <td>MCP</td>
-                        <td>Troller</td>
-                        <td>Route</td>
-                        <td>Vehicle</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -116,12 +107,12 @@ Data render from server:
             <div class="dropdown">
                 <button type="button" class="dropbtn">Week</button>
                 <div class="dropdown-content">
-                    <a href="#">ID</a>
-                    <a href="#">Name</a>
-                    <a href="#">Vehicle</a>
-                    <a href="#">Route</a>
-                    <a href="#">Troller</a>
-                    <a href="#">MCP</a>
+                    <a href="#" class="choosetype">ID</a>
+                    <a href="#" class="choosetype">Name</a>
+                    <a href="#" class="choosetype">Vehicle</a>
+                    <a href="#" class="choosetype">Route</a>
+                    <a href="#" class="choosetype">Troller</a>
+                    <a href="#" class="choosetype">MCP</a>
                 </div>
             </div>
         </div>
