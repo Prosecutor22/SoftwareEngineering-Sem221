@@ -9,11 +9,6 @@
   </head>
   <body>
     <!-- <h1><%= title %></h1> -->
-    <% if (hasMessages) { %>
-			<% messages.forEach(function(message) { %>
-				<p style="color: red;"><%= message %></p>
-			<% }); %>
-		<% } %>
     <div class="login-image">
       <img src="pic/login.png" alt="Image"> 
     </div>
@@ -34,10 +29,15 @@
         <label>
           <input type="checkbox" checked="checked" name="remember"> Remember me
         </label>
+        <% if (hasMessages) { %>
+          <% messages.forEach(function(message) { %>
+            <p style="color: red;"><%= message %></p>
+          <% }); %>
+        <% } %>
       </div>
     
       <div class="container" style="background-color:#f1f1f1">
-        <button type="button" class="cancelbtn">Cancel</button>
+        <a href='/'><button type="button" class="cancelbtn">Cancel</button></a>
         <span class="psw">Forgot <a href="#">password?</a></span>
       </div>
     </form>
