@@ -25,17 +25,16 @@ Data render from server:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/assign_task.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="stylesheet" href="/css/assign_task.css">
 </head>
 <body>
     <!-- Header box -->
-    <!-- <%- include("partials/header"); -%> -->
-    <header class="header"></header>
-
-
+    <%- include("partials/header"); -%>
     <!-- Navigator bar -->
     <nav class="sidebar">
       <div class="nav_position">
@@ -86,6 +85,11 @@ Data render from server:
     <!-- 1. Header: Title, 2 dropdown (Week, Actor) -->
     <h1 class="title"><strong>Assign Task</strong></h1>
 
+      <!-- Create Button -->
+      <button class="create" type="button">   
+        Create   
+      </button>
+
     <!-- Week Dropdown-Button -->
     <div class="dropdown">
       <div class="select">
@@ -111,6 +115,7 @@ Data render from server:
         <li>Janitor</li>
       </ul>
     </div>
+
 
 
     <!-- 2. Body: 2 tables (Unassigned List, Avalable Table) -->
@@ -218,9 +223,7 @@ Data render from server:
       <button class="save" type="button" onclick="alert('You will successfully assign task!')">   
         Save   
       </button>
-    </div>
-
-    <!-- <%- include("partials/footer"); -%>       -->
+    </div>   
 
     <script>
       // dropdown
@@ -252,7 +255,11 @@ Data render from server:
         });
       });
 
-      // ...
+      // Dropdown Profile
+      let subMenu = document.getElementById("subMenu");
+      function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+      }
     </script>
     <script src="/js/assign-task.js"></script>
     

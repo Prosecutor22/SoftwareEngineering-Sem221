@@ -8,19 +8,91 @@ html
 {
     font-family: Nunito;
 }
-
-.header{
+/* HEADER */
+/* Header box */
+nav{
     box-sizing: border-box;
 
     position: absolute;
     width: 100%;
-    height: 100px;
+    height: 60px;
     left: 0px;
     top: 0px;
+    align-items: center;
+    justify-content: space-between;
 
     background: #FFFFFF;
     border-bottom: 1px solid #E8E8E8;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.icon-button{
+    border-radius: 0.5rem;
+    border: none;
+    padding-left: 4px;
+    padding-right: 4px;
+    cursor: pointer;
+    position: absolute;
+
+    left: 1200px;
+    top: 15px;
+}
+.user{
+    display: flex;
+    align-items: center;
+}
+.user-pic{
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 30px;
+
+    left: 1230px;
+    top: 13px;
+}
+.user h3{
+    position: absolute;
+    font-family: "Poppins";
+    font-size: medium;
+    left: 1300px;
+    top: 3px;
+    margin-left: 7px;
+}
+.sub-menu-wrap{
+    position: absolute;
+    top: 100%;
+    right: 0%;
+    width: 250px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    z-index: 1;
+}
+.sub-menu-wrap.open-menu{
+    max-height: 300px;
+}
+.sub-menu{
+    background: #fff;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 0.5em;
+    border: none;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+}
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 10px 0;
+}
+.sub-menu-link p{
+    margin-left: 10px;
+    width: 90%;
+}
+.sub-menu-link span{
+    font-size: 22px;
 }
 /* Sidebar */  
 .sidebar{

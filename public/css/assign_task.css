@@ -1,3 +1,122 @@
+/* 1. Header: Title, 2 dropdown (Week, Actor) */
+/* Title: Assign Task */
+.title{
+    position: absolute;
+    width: 463px;
+    height: 60px;
+    left: 330px;
+    top: 70px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 42px;
+    /* identical to box height, or 88% */
+
+    font-feature-settings: 'salt' on, 'liga' off;
+}
+
+/* Create button */
+.create{
+    position: absolute;
+    width: 80px;
+    height: 30px;
+    left: 930px;
+    top: 125px;
+
+    background: #4DC66F;
+    border-radius: 1rem;
+    border: 1.5px #2a2f3b solid;
+    font-size: 15px;
+    padding: 6px;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 4px 4px #676363;
+    cursor: pointer;
+}
+
+/* Week/Actor dropdown-button */
+.dropdown {
+    min-width: 5em;
+    position: relative;
+    margin: 2em;
+    width: 8em;
+    height: 67.8px;
+    left: 1050px;
+    top: 75px;
+}
+.dropdown * {
+    box-sizing: border-box;
+}
+.select{
+    background: #4DC66F;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px #2a2f3b solid;
+    border-radius: 0.5em;
+    padding: 1em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.select-clicked{
+    border: 2px #246235 solid;
+    box-shadow: 0 0 0.8em #246235;
+}
+.select:hover{
+    background: #41ad5f;
+}
+.caret{
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #fff;
+    transition: 0.3s;
+}
+.caret-rotate{
+    transform: rotate(180deg);
+}
+
+.menu{
+    list-style: none;
+    padding: 0.2em 0.5em;
+    background: #9feab3;
+    border: 1px #363a43 solid;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    color: #fff;
+    position: absolute;
+    top: 3em;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    opacity: 0;
+    display: none;
+    transition: 0.2s;
+    z-index: 1;
+}
+.menu li{
+    padding: 0.7em 0.5em;
+    margin: 0.3em 0;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+.menu li:hover{
+    background: #41ad5f;
+}
+.menu .active{
+    background: #246235;
+}
+.menu-open{
+    display: block;
+    opacity: 1;
+}
+
+
+
 /* 2. Body: 2 tables (Unassigned List, Avalable Table) */
 /* Unassigned List */
 .Unassigned table{
@@ -225,6 +344,6 @@
     padding: 6px;
     align-items: center;
     color: #fff;
-    box-shadow: #676363;
+    box-shadow: 0 4px 4px #676363;
     cursor: pointer;
 }
