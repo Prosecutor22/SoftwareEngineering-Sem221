@@ -71,6 +71,7 @@ router.get('/assign-task', async function(req, res, next) {
     docsfileter.startDay = lastMod.startDay;
     retAssign.filter = docsfileter;
     res.send(retAssign);
+    // retAssign : week: .... , Unassignee: ....., Schedule: ...., docsfileter: .... 
 });
 
 // TO-DO: save tasks in mongoDB
