@@ -179,6 +179,11 @@ router.get('/assign-task/new-week', async function(req, res, next){
 // TO-DO: render task history
 // query: {(field): (value)}
 router.get('/task-history', async function(req, res, next) {
+    var name = null;
+    if (req.query.name) {
+        name = req.query.name;
+        delete req.query.name;
+    }
     const collectors = await Collector.find({});
     const janitors = await Janitor.find({}); 
     var employees = collectors.concat(janitors);
@@ -188,6 +193,7 @@ router.get('/task-history', async function(req, res, next) {
         row.name = employees.find(employee => employee.id === row.id).name;
         return row;
     });
+    rows.filter(row => row.name === name);
     res.render('task-history', { title: 'Task History' , rows: rows, filters: req.query});
 });
 
