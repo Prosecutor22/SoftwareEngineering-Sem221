@@ -41,7 +41,16 @@ router.get('/dashboard', async function(req, res, next) {
     statistics.numVehicle = await getNumber(Route);
     statistics.numTroller = await getNumber(Janitor);
     statistics.numRoute = await getNumber(Route);
-    res.send(statistics);
+    // res.send(statistics);
+    res.render('dashboard', {
+        title: 'Dashboard',
+        numCollector: numCollector,
+        numJanitor: numJanitor,
+        numVehicle: numVehicle,
+        numTroller: numTroller,
+        numMCP: numMCP,
+        numRoute: numRoute
+    })
 });
 
 // TO-DO: render assign task
@@ -74,12 +83,19 @@ router.get('/assign-task', async function(req, res, next) {
         retAssign.Schedule = schedule;
         docsfileter.type = 'Janitor';
     }
-    var lastMod = await Tasks.find({week:cur}, {lastModified:1, startDay:1, _id: 0});
+    var lastMod = await weekTime.find({week:cur}, {lastModified:1, startDay:1, _id: 0});
     docsfileter.lastModified = lastMod.lastModified;
     docsfileter.startDay = lastMod.startDay;
     retAssign.filter = docsfileter;
-    res.send(retAssign);
+    weeks = (await weekTime.find({},{week: 1, _id: 0})).map(e => e.week)
+    //res.send(retAssign);
     // retAssign : week: .... , Unassignee: ....., Schedule: ...., docsfileter: .... 
+    res.render('assign-task',{
+        title: 'Assign Task',
+        weeks: weeks,
+        data: retAssign,    
+        filter: docsfileter
+    })
 });
 
 // TO-DO: save tasks in mongoDB
@@ -103,8 +119,19 @@ router.post('/assign-task', async function(req, res, next){
     }
 
     var currentDate = new Date();
-    weekTime.updateOne({week: parseInt(req.query.week)}, {lastModified: currentDate});
-    res.send(currentDate)
+    await weekTime.updateOne({week: parseInt(req.query.week)}, {lastModified: currentDate});
+    weeks = (await weekTime.find({},{week: 1, _id: 0})).map(e => e.week)
+    res.render('assign-task', {
+        title: 'Assign Task',
+        weeks: weeks,
+        data: req.body.data,    
+        filter: {
+            week: req.query.week,
+            type: req.query.type,
+            lastModified: currentDate,
+            startDay: (await weekTime.find({week: parseInt(req.query.week)})).at(0).startDay,
+        }
+    })
 });
 
 // TO-DO: find and return task data of given week's previous week
@@ -121,7 +148,6 @@ router.get('/assign-task/last-week', async function(req, res, next){
         res.status(404).send('Cannot get last week');
         return ;
     }
-    retAssign.week = cur;
     if (employee === "Collector"){
         data.unassigned =[];
         data.schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {_id: 0});
@@ -130,11 +156,15 @@ router.get('/assign-task/last-week', async function(req, res, next){
         data.unassigned =[];
         data.docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/}, {_id: 0});
     }
+    retAssign.title = 'Assign Task';
+    retAssign.weeks = (await weekTime.find({},{week: 1, _id: 0})).map(e => e.week)
     retAssign.data = data;
     docsfilter.week = cur;
     docsfilter.type = employee;
+    docsfilter.lastModified = (await weekTime.find({week: cur})).at(0).lastModified;
+    docsfilter.startDay = (await weekTime.find({week: cur})).at(0).startDay;
     retAssign.filter = docsfilter;
-    res.send(retAssign);
+    res.render('assign-task', retAssign);
 });
 
 // TO-DO: create records of new week in tasks collection
@@ -171,7 +201,20 @@ router.get('/assign-task/new-week', async function(req, res, next){
         });
     });
 
-    res.send({newWeek: latestWeek});
+    res.render('assign-task', {
+        title: 'Assign Task',
+        weeks: (await weekTime.find({},{week: 1, _id: 0})).map(e => e.week),
+        data: {
+            unassigned: collectors.map(e => e.id),
+            schedule: []
+        },
+        filter: {
+            week: latestWeek,
+            type: 'Collector',
+            lastModified: currentDate,
+            startDay: startWeek
+        }
+    })
 });
 
 // TO-DO: render task history
@@ -192,7 +235,11 @@ router.get('/task-history', async function(req, res, next) {
         return row;
     });
     rows.filter(row => row.name === name);
-    res.render('task-history', { title: 'Task History' , rows: rows, filters: req.query});
+    res.render('task-history', { 
+        title: 'Task History',
+        rows: rows,
+        filters: req.query
+    });
 });
 
 module.exports = router;
