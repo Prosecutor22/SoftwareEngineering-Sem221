@@ -112,7 +112,7 @@ router.post('/assign-task', async function(req, res, next){
     }
     else {
         assignID = await Janitor.find({}, {id: 1, _id: 0})
-        Tasks.updateMany({week: req.query.week, id: {$in: assignID}}, {mcp: null, troller: null});
+        await Tasks.updateMany({week: req.query.week, id: {$in: assignID}}, {mcp: null, troller: null});
         tasks.forEach(async (t) => {
             await Tasks.updateOne({week: req.query.week, id: t.assignee}, {mcp: t.mcp, troller: t.troller});
         });
@@ -121,16 +121,20 @@ router.post('/assign-task', async function(req, res, next){
     var currentDate = new Date();
     await weekTime.updateOne({week: parseInt(req.query.week)}, {lastModified: currentDate});
     weeks = (await weekTime.find({},{week: 1, _id: 0})).map(e => e.week)
-    res.render('assign-task', {
-        title: 'Assign Task',
-        weeks: weeks,
-        data: req.body.data,    
-        filter: {
-            week: req.query.week,
-            type: req.query.type,
-            lastModified: currentDate,
-            startDay: (await weekTime.find({week: parseInt(req.query.week)})).at(0).startDay,
-        }
+    // res.render('assign-task', {
+    //     title: 'Assign Task',
+    //     weeks: weeks,
+    //     data: req.body.data,    
+    //     filter: {
+    //         week: req.query.week,
+    //         type: req.query.type,
+    //         lastModified: currentDate,
+    //         startDay: (await weekTime.find({week: parseInt(req.query.week)})).at(0).startDay,
+    //     }
+    // })
+    res.send({
+        result: "Success",
+        lastModified: currentDate
     })
 });
 
@@ -201,20 +205,20 @@ router.get('/assign-task/new-week', async function(req, res, next){
         });
     });
 
-    res.render('assign-task', {
-        title: 'Assign Task',
-        weeks: (await weekTime.find({},{week: 1, _id: 0})).map(e => e.week),
-        data: {
-            unassigned: collectors.map(e => e.id),
-            schedule: []
-        },
-        filter: {
-            week: latestWeek,
-            type: 'Collector',
-            lastModified: currentDate,
-            startDay: startWeek
-        }
-    })
+    // res.render('assign-task', {
+    //     title: 'Assign Task',
+    //     weeks: (await weekTime.find({},{week: 1, _id: 0})).map(e => e.week),
+    //     data: {
+    //         unassigned: collectors.map(e => e.id),
+    //         schedule: []
+    //     },
+    //     filter: {
+    //         week: latestWeek,
+    //         type: 'Collector',
+    //         lastModified: currentDate,
+    //         startDay: startWeek
+    //     }
+    // })
 });
 
 // TO-DO: render task history
