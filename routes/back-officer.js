@@ -36,20 +36,20 @@ function getNumber(modelCollection){
 router.get('/dashboard', async function(req, res, next) {
     statistics = {};
     statistics.numMCP = await getNumber(MCP);
-    statistics.numCollector = await getNumber(Collector);
-    statistics.numJanitor = await getNumber(Janitor);
-    statistics.numVehicle = await getNumber(Route);
-    statistics.numTroller = await getNumber(Janitor);
-    statistics.numRoute = await getNumber(Route);
+    statistics.numCollectors = await getNumber(Collector);
+    statistics.numJanitors = await getNumber(Janitor);
+    statistics.numVehicles = await getNumber(Route);
+    statistics.numTrollers = await getNumber(Janitor);
+    statistics.numRoutes = await getNumber(Route);
     // res.send(statistics);
     res.render('dashboard', {
         title: 'Dashboard',
-        numCollector: numCollector,
-        numJanitor: numJanitor,
-        numVehicle: numVehicle,
-        numTroller: numTroller,
-        numMCP: numMCP,
-        numRoute: numRoute
+        numCollector: statistics.numCollector,
+        numJanitor: statistics.numJanitor,
+        numVehicle: statistics.numVehicle,
+        numTroller: statistics.numTroller,
+        numMCP: statistics.numMCP,
+        numRoute: statistics.numRoute
     })
 });
 
