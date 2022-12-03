@@ -50,7 +50,7 @@ router.get('/assign-task', async function(req, res, next) {
     var cur = req.query.week;
     if (!cur) {
         var curDate = new Date();
-        var curWeek = await (await weekTime.find({startDay: {$lte: curDate}}).sort({week: -1})).at(0);
+        var curWeek = (await weekTime.find({ startDay: { $lte: curDate } }).sort({ week: -1 })).at(0);
         if (curWeek.status != 'done'){
             await weekTime.updateMany({week: {$lte: curWeek.week}}, {status: 'done'});
         }
@@ -63,14 +63,14 @@ router.get('/assign-task', async function(req, res, next) {
     if (req.query.type == "collector") {
         schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {id: 1, route:1, vehicle:1, _id: 0});
         docsAssigned = await Tasks.find({week:cur, id:/^C[1-4]/, vehicle: null}, {id: 1, _id: 0});
-        retAssign.Unassignee = docsUnassigned;
+        retAssign.Unassignee = docsAssigned;
         retAssign.Schedule = schedule;
         docsfileter.type = 'Collector';
     }
     else {
         schedule = await Tasks.find({week: cur, id:/^J[0-9]{1,2}/}, {id: 1, mcp:1, troller:1, _id: 0});
         docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/, troller: null}, {id: 1, _id: 0});
-        retAssign.Unassignee = docsUnassigned;
+        retAssign.Unassignee = docsAssigned;
         retAssign.Schedule = schedule;
         docsfileter.type = 'Janitor';
     }
