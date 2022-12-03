@@ -124,11 +124,11 @@ router.get('/assign-task/last-week', async function(req, res, next){
     retAssign.week = cur;
     if (employee === "Collector"){
         data.unassigned =[];
-        data.schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {id: 1, route:1, vehicle:1, _id: 0});
+        data.schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {_id: 0});
     }
     else {
         data.unassigned =[];
-        data.docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/}, {id: 1, _id: 0});
+        data.docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/}, {_id: 0});
     }
     retAssign.data = data;
     docsfilter.week = cur;
