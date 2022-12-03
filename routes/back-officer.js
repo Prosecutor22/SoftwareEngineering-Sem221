@@ -225,16 +225,21 @@ router.get('/task-history', async function(req, res, next) {
         name = req.query.name;
         delete req.query.name;
     }
+
     const collectors = await Collector.find({});
     const janitors = await Janitor.find({}); 
     var employees = collectors.concat(janitors);
-    var rows = await Tasks.find(req.query);
+    var rows = await Tasks.find(req.query).sort({week: 1, id: 1});
     rows = rows.map(row => {
         row = row.toObject();
         row.name = employees.find(employee => employee.id === row.id).name;
         return row;
     });
-    rows.filter(row => row.name === name);
+    rows = rows.filter(row => row.mcp != null || row.route != null);
+    if (name) {
+        rows = rows.filter(row => row.name === name);
+        req.query.name = name
+    }
     res.render('task-history', { 
         title: 'Task History',
         rows: rows,
