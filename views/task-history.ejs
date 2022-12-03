@@ -88,33 +88,17 @@ Data render from server:
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>J1</td>
-                        <td>Name</td>
-                        <td>MCP</td>
-                        <td>Troller</td>
-                        <td>Route</td>
-                        <td>Vehicle</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>J2</td>
-                        <td>Name</td>
-                        <td>MCP</td>
-                        <td>Troller</td>
-                        <td>Route</td>
-                        <td>Vehicle</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>C1</td>
-                        <td>Name</td>
-                        <td>MCP</td>
-                        <td>Troller</td>
-                        <td>Route</td>
-                        <td>Vehicle</td>
-                    </tr>
+                    <% rows.forEach(function(row) { %>
+                        <tr>
+                            <td><%= row.week %></td>
+                            <td><%= row.id %></td>
+                            <td><%= row.name %></td> 
+                            <td><%= row.mcp %></td>
+                            <td><%= row.troller %></td>
+                            <td><%= row.route %></td>
+                            <td><%= row.vehicle %></td>
+                        </tr> 
+                    <% }); %>
                     <tr>
                         <td>4</td>
                         <td>C2</td>
