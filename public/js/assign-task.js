@@ -92,7 +92,7 @@ const getData = () => {
     for (let i = 0; i < scheduleTable.children.length; i++) {
         let row = scheduleTable.children[i];
         const task = {};
-        if (type === 'collector') {
+        if (type === 'Collector') {
             task.route = row.children[0].innerText;
             task.vehicle = row.children[1].innerText;
         } else {
