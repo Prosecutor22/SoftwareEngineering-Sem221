@@ -4,7 +4,7 @@
     width: 15%;
     height: 700px;
     left: 0px;
-    top: 100px;
+    top: 60px;
     background-color: #FFFFFF;
 }
 .nav_name{
@@ -59,6 +59,6 @@
     width: 70%;
     height: 700px;
     left: 15%;
-    top: 60px;
+    top: 60px !important;
     background-color: #A7FFBF;
 }
