@@ -27,46 +27,32 @@ h1{
     padding: 3rem 0 3rem 3rem;
 }
 
-.table {
-    width: 90%;
-    height: 400px;
-}
-
-.container tbody {
-    display: block;
-    height: 400px;
-    overflow-y: auto;
-}
-
-.container tr{
-    display: block;
-} 
-
 .history_tb{
-    margin-top: 10px;
-    margin-left: 5rem;
-    border-collapse: collapse; 
-    width: 800px;
-    /* overflow-y: scroll; */
+    width: 900px;
+    table-layout: fixed;
     position: absolute;
+    border-collapse: collapse;
 }
-  
-.history_tb td, th{
+
+.history_tb tbody{
+    display:block;
+    width: 100%;
+    overflow: auto;
+    height: 430px;
+}
+
+.history_tb thead tr {
+    display: block;
+}
+
+.history_tb thead {
+    background: #A7FFBF;
+}
+
+.history_tb th, .history_tb td {
+    padding: 5px;
     text-align: left;
-    padding: 10px;
-}
-
-
-.history_tb th{
-    /* position: sticky; 
-    top: 0px; */
-    z-index: 1;
-    background-color: #A7FFBF;
-    width: 15%;
-}
-
-.history_tb td{
-    width: 15%;
+    width: 130px;
 }
 
 /* time-navi */
