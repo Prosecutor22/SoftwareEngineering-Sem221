@@ -108,13 +108,13 @@ router.get('/assign-task', async function(req, res, next) {
 router.post('/assign-task', async function(req, res, next){
     var tasks = req.body.schedule.filter(e => e.assignee != null);
     if (req.query.type === 'Collector'){
-        await Tasks.updateMany({week: req.query.week}, {route: null, vehicle: null});
+        await Tasks.updateMany({week: req.query.week, id: /^C/}, {route: null, vehicle: null});
         tasks.forEach(async (t) => {
             await Tasks.updateOne({week: req.query.week, id: t.assignee}, {route: t.route, vehicle: t.vehicle})
         });
     }
     else {
-        await Tasks.updateMany({week: req.query.week}, {mcp: null, troller: null});
+        await Tasks.updateMany({week: req.query.week, id: /^J/}, {mcp: null, troller: null});
         tasks.forEach(async (t) => {
             await Tasks.updateOne({week: req.query.week, id: t.assignee}, {mcp: t.mcp, troller: t.troller});
         });
