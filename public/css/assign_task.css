@@ -234,7 +234,7 @@
 }
 
 .container td {
-    padding: 1rem 2rem;
+    padding: 1rem 3.5rem;
 }
 .Actor {
     padding: 0.5rem 1rem;
@@ -248,6 +248,7 @@
     font-size: medium;
     padding: 6px;
     align-items: center;
+    min-width: 100px;
 }
 
 

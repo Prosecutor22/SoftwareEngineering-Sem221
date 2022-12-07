@@ -80,7 +80,7 @@ assignedZones.forEach(assignedZone => {
     assignedZone.addEventListener('drop', drop_handler);
 });
 
-const scheduleTable = document.getElementById("schedule");
+var scheduleTable = document.getElementById("schedule");
 
 const getData = () => {
     const data = {};
@@ -166,6 +166,7 @@ const createButton = (id, isUnassigned) => {
     btn.id = id;
     btn.innerText = id;
     btn.addEventListener('dragstart', dragstart_handler);
+    return btn;
 }
 
 const setData = (data) => {
@@ -202,7 +203,7 @@ const setData = (data) => {
         td3.classList.add('assignedZone');
         td3.addEventListener('dragover', dragover_handler);
         td3.addEventListener('drop', drop_handler);
-        if (task.assignee !== null) td3.appendChild(createButton(task.assignee, false));
+        if (task.id !== null) td3.appendChild(createButton(task.id, false));
         tr.appendChild(td3);
 
         scheduleTable.appendChild(tr);
@@ -215,11 +216,12 @@ sameCheckBox.addEventListener('change', async (e) => {
         const url = new URL(document.location);
         const params = url.searchParams;
         const week = params.get('week');
+        const type = params.get('type');
 
-        var response = await fetch(`/back-officer/assign-task/last-week?week=${week}`);
+        var response = await fetch(`/back-officer/assign-task/last-week?week=${week}&type=${type}`);
         response = await response.json();
 
-        setData(response);
+        setData(response.data);
     }
 });
 

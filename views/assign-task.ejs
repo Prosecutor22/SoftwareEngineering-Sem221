@@ -8,11 +8,11 @@ Data render from server:
     schedule: [{
       route: string
       vehicle: string
-      assignee: string
+      id: string
     }] OR [{
       troller: string
       mcp: string
-      assignee: string
+      id: string
     }]
   }
   filter: {
@@ -41,26 +41,34 @@ Data render from server:
     <!-- Week Dropdown-Button -->
     <div class="dropdown selectWeek">
       <div class="select">
-        <span class="selected">Week 1</span>
+        <span class="selected">Week <%= filter.week %></span>
         <div class="caret"></div>
       </div>
       <ul class="menu menuWeek">
-        <li class="active">Week 1</li>
-        <li>Week 2</li>
-        <li>Week 3</li>
-        <li>Week 4</li>
+        <% weeks.forEach(week => { %>
+          <% if (week == filter.week) { %>
+            <li class="active">Week <%= week %></li>
+          <% } else { %>
+            <li>Week <%= week %></li>
+          <% } %>
+        <% }); %>
       </ul>
     </div>
 
     <!-- Actor Dropdown-Button -->
     <div class="dropdown selectType">
       <div class="select">
-        <span class="selected">Collector</span>
+        <span class="selected"><%= filter.type %></span>
         <div class="caret"></div>
       </div>
       <ul class="menu menuType">
-        <li class="active">Collector</li>
-        <li>Janitor</li>
+        <% if (filter.type === "Collector") { %>
+          <li class="active">Collector</li>
+          <li>Janitor</li>
+        <% } else { %>
+          <li class="active">Janitor</li>
+          <li>Collector</li>
+        <% } %>
       </ul>
     </div>
 
@@ -76,10 +84,9 @@ Data render from server:
             </tr>
           </thead>
           <tbody id="unassignedZone">
-            <tr><td class="Actor"><button draggable="true" class="employee unassigned" id="collector1">Collector 1</button></td></tr>
-            <tr><td class="Actor"><button draggable="true" class="employee unassigned" id="collector2">Collector 2</button></td></tr>
-            <tr><td class="Actor"><button draggable="true" class="employee unassigned" id="collector3">Collector 3</button></td></tr>
-            <tr><td class="Actor"><button draggable="true" class="employee unassigned" id="collector4">Collector 4</button></td></tr>
+            <% data.unassigned.forEach(employee => { %>
+              <tr><td class="Actor"><button draggable="true" class="employee unassigned" id=<%= employee.id %>><%= employee.id %></button></td></tr>
+            <% }); %>
           </tbody>
         </table>
     </div>
@@ -88,57 +95,37 @@ Data render from server:
           <table>
             <thead style="display:table-header-group">
               <tr>
-                <th>Route</th>
-                <th>Vehicle</th>
+                <% if (filter.type === "Collector") { %>
+                  <th>Route</th>
+                  <th>Vehicle</th>
+                <% } else { %>
+                  <th>MCP</th>
+                  <th>Troller</th>
+                <% } %>
                 <th>Assignee</th>
               </tr>
             </thead>
             <tbody id="schedule">
-              <tr>
-                <td class="col">Route ABC</td>
-                <td class="col">51-F1 123.45</td>
-                <td class="Actor assignedZone"></td>
-              </tr>
-              <tr>
-                <td class="col">Route ABC</td>
-                <td class="col">51-F1 123.45</td>
-                <td class="Actor assignedZone"></td>
-              </tr>
-              <tr>
-                <td class="col">Route ABC</td>
-                <td class="col">51-F1 123.45</td>
-                <td class="Actor assignedZone"><button draggable="true" class="employee" id="collector16">Collector 16</button></td>
-              </tr>
-              <tr>
-                <td class="col">Route ABC</td>
-                <td class="col">51-F1 123.45</td>
-                <td class="Actor assignedZone"><button draggable="true" class="employee" id="collector17">Collector 17</button></td>
-              </tr>
-              <tr>
-                <td class="col">Route ABC</td>
-                <td class="col">51-F1 123.45</td>
-                <td class="Actor assignedZone"><button draggable="true" class="employee" id="collector18">Collector 18</button></td>
-              </tr>
-              <tr>
-                <td class="col">Route ABC</td>
-                <td class="col">51-F1 123.45</td>
-                <td class="Actor assignedZone"></td>
-              </tr>
-              <tr>
-                <td class="col">Route ABC</td>
-                <td class="col">51-F1 123.45</td>
-                <td class="Actor assignedZone"></td>
-              </tr>
-              <tr>
-                <td class="col">Route ABC</td>
-                <td class="col">51-F1 123.45</td>
-                <td class="Actor assignedZone"></td>
-              </tr>
-              <tr>
-                <td class="col">Route ABC</td>
-                <td class="col">51-F1 123.45</td>
-                <td class="Actor assignedZone"></td>
-              </tr>
+
+              
+              <% data.schedule.forEach(task => { %>
+                <tr>
+                  <% if (filter.type === "Collector") { %>
+                    <td class="col"><%= task.route %></td>
+                    <td class="col"><%= task.vehicle %></td>
+                  <% } else { %>
+                    <td class="col"><%= task.mcp %></td>
+                    <td class="col"><%= task.troller %></td>
+                  <% } %>
+
+                  <% if (task.id) { %>
+                    <td class="Actor assignedZone"><button draggable="true" class="employee" id=<%= task.id %>><%= task.id %></button></td>
+                  <% } else { %>
+                    <td class="Actor assignedZone"></td>
+                  <% } %>
+                </tr>
+              <% }); %>
+            
             </tbody>
           </table>
     </div>
