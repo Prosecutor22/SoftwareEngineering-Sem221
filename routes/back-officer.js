@@ -110,7 +110,7 @@ router.post('/assign-task', async function(req, res, next){
     if (req.query.type === 'Collector'){
         await Tasks.updateMany({week: req.query.week, id: /^C/}, {route: null, vehicle: null});
         tasks.forEach(async (t) => {
-            await Tasks.updateMany({week: req.query.week, id: t.assignee}, {route: t.route, vehicle: t.vehicle})
+            await Tasks.updateOne({week: req.query.week, id: t.assignee}, {route: t.route, vehicle: t.vehicle})
         });
     }
     else {
