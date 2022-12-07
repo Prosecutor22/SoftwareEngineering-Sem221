@@ -22,7 +22,7 @@
     position: absolute;
     width: 80px;
     height: 30px;
-    left: 930px;
+    left: 850px;
     top: 125px;
 
     background: #4DC66F;
@@ -39,13 +39,22 @@
 /* Week/Actor dropdown-button */
 .dropdown{
     min-width: 5em;
-    position: relative;
+    position: absolute;
     margin: 2em;
     width: 8em;
     height: 67.8px;
-    left: 1050px;
+}
+
+.selectWeek {
+    left: 950px;
     top: 75px;
 }
+
+.selectType {
+    left: 1125px;
+    top: 75px;
+}
+
 .dropdown * {
     box-sizing: border-box;
 }
@@ -225,7 +234,7 @@
 }
 
 .container td {
-    padding: 1rem 2rem;
+    padding: 1rem 3.5rem;
 }
 .Actor {
     padding: 0.5rem 1rem;
@@ -239,6 +248,7 @@
     font-size: medium;
     padding: 6px;
     align-items: center;
+    min-width: 100px;
 }
 
 
@@ -295,7 +305,7 @@
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: #fff;
+    background-color: #a09b9b;
     border-radius: 0.4rem;
 }
 /* On mouse-over, add a grey background color */
@@ -334,7 +344,7 @@
     position: absolute;
     width: 80px;
     height: 30px;
-    left: 1247px;
+    left: 1225px;
     top: 650px;
 
     background: #4DC66F;

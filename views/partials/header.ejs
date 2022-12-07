@@ -3,13 +3,12 @@
 <html lang="en">
 	<head>
 		<title><%= title %></title>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 		<link rel="stylesheet" href="/css/header.css">
 		<link rel="stylesheet" href="/css/navi.css">
 		<link rel="stylesheet" href="/css/back-officer.css">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-	</head>
-	<body>
+
 	<!-- Header box -->
 		<header class="header">
 			<div class="h-nav">			
@@ -46,5 +45,43 @@
 				</div>
 			</div>
 		</header>
-	</body>
-</html>
+
+		<nav class="sidebar">
+            <div class="nav_position">
+                <p class="nav_name">MAIN MENU</p>
+                <div class="nav_list">
+                    <a href="/back-officer/dashboard" class="nav_link active">
+                        <i class='bx bx-grid-alt nav_icon'></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <br>
+                    <a href="/back-officer/assign-task" class="nav_link active">
+                        <i class='bx bx-pencil nav_icon'></i>
+                        <span>Assign Task</span>
+                    </a>
+                    <br>
+                    <a href="/back-officer/task-history" class="nav_link active">
+                        <i class='bx bx-data nav_icon'></i>
+                        <span>View History</span>
+                    </a>
+                    <br>
+                    <a href="#" class="nav_link active">
+                        <i class='bx bx-message-dots nav_icon'></i>
+                        <span>Chat</span>
+                    </a>
+                </div>
+
+                <p class="nav_name">OTHERS</p>
+                <div class="nav_list">
+                    <a href="#" class="nav_link active">
+                        <i class='bx bxs-user-detail nav_icon'></i>
+                        <span>Profile</span>
+                    </a>
+                    <br>
+                    <a href="#" class="nav_link active">
+                        <i class='bx bx-cog nav_icon'></i>
+                        <span>Setting</span>
+                    </a>
+                </div>
+            </div>
+        </nav>

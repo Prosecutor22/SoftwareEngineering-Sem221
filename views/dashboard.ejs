@@ -9,66 +9,16 @@ Data render from server:
     numMCP: int
     numRoute: int
 -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<%- include("partials/header"); -%>
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/back-officer.css">
 </head>
 <body>
-    <!-- ... -->
-    <%- include("partials/header"); -%>
     <!-- CONTAINER -->
     <div class="container">
-        <!-- navigator -->
-        <nav class="sidebar">
-            <div class="nav_position">
-                <p class="nav_name">MAIN MENU</p>
-                <div class="nav_list">
-                    <a href="#" class="nav_link active">
-                        <i class='bx bx-grid-alt nav_icon'></i>
-                        <span>Dashboard</span>
-                    </a>
-                    <br>
-                    <a href="/back-officer/assign-task" class="nav_link active">
-                        <i class='bx bx-calendar nav_icon'></i>
-                        <span>Task Management</span>
-                    </a>
-                    <br>
-                    <a href="/back-officer/assign-task" class="nav_link active">
-                        <i class='bx bx-pencil nav_icon'></i>
-                        <span>Assign Task</span>
-                    </a>
-                    <br>
-                    <a href="/back-officer/task-history" class="nav_link active">
-                        <i class='bx bx-data nav_icon'></i>
-                        <span>View History</span>
-                    </a>
-                    <br>
-                    <a href="#" class="nav_link active">
-                        <i class='bx bx-message-dots nav_icon'></i>
-                        <span>Chat</span>
-                    </a>
-                </div>
-
-                <p class="nav_name">OTHERS</p>
-                <div class="nav_list">
-                    <a href="#" class="nav_link active">
-                        <i class='bx bxs-user-detail nav_icon'></i>
-                        <span>Profile</span>
-                    </a>
-                    <br>
-                    <a href="#" class="nav_link active">
-                        <i class='bx bx-cog nav_icon'></i>
-                        <span>Setting</span>
-                    </a>
-                </div>
-            </div>
-        </nav>
         <!-- dashboard main content -->
         <div class="content">
             <h1>DASH BOARD</h1>
@@ -112,7 +62,6 @@ Data render from server:
             </div>    
         </div>
     </div>
-</body>
-</html> 
+<%- include("partials/footer"); -%>
 
 
