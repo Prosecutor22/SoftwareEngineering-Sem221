@@ -1,16 +1,19 @@
 /* 1. Header: Title, 2 dropdown (Week, Actor) */
 /* Title: Assign Task */
+body{
+    background-color: #A7FFBF;
+}
 .title{
     position: absolute;
     width: 463px;
     height: 60px;
-    left: 330px;
-    top: 70px;
+    left: 278px;
+    top: 108px;
 
     font-family: Poppins;
     font-style: normal;
-    font-weight: 500;
-    font-size: 48px;
+    font-weight: 600;
+    font-size: 40px;
     line-height: 42px;
     /* identical to box height, or 88% */
 
