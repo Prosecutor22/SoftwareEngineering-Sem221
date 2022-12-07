@@ -1,15 +1,4 @@
 /* Content */
-::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, .5);
-    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-  }
-
 .content{
     position: absolute;
     width: 70%;
@@ -64,6 +53,7 @@ h1{
     top: 60px;
     right: 0;
     background-color: #e8e5e5;
+    margin: auto;
 }
 
 .dropbtn {
@@ -74,7 +64,10 @@ h1{
     font-weight: bold;
     border: none;
     cursor: pointer;
-    border-radius: 13.4198px;
+    border-radius: 13px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .dropdown {
@@ -116,4 +109,26 @@ h1{
 
 .dropdown:hover .dropbtn{
     background-color: #4DC66F;
+}
+
+.time_navi input[type="text"]{
+    width: 80%;
+    margin: 20px 0;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.time_navi .search{
+    width: 80px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #4DC66F;
+    color: white;
+    border-radius: 5px;
+    border-color: #4DC66F;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }

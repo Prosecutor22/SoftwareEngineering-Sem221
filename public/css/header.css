@@ -3,7 +3,7 @@
     box-sizing: border-box;
 
     position: absolute;
-    width: 100%;
+    width: 100%!important;
     height: 60px;
     left: 0px;
     top: 0px;
@@ -40,12 +40,12 @@
     left: 1230px;
     top: 13px;
 }
-.user h3{
+.header .user h3{
     display: inline-block;
     position: absolute;
     font-family: "Poppins";
     font-size: medium;
-    right: 0px;
+    right: 70px;
     top: 20px;
     margin-left: 7px;
 }
