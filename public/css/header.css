@@ -1,5 +1,5 @@
 /* Header box */
-nav{
+.h-nav{
     box-sizing: border-box;
 
     position: absolute;
@@ -41,6 +41,7 @@ nav{
     top: 13px;
 }
 .user h3{
+    display: inline-block;
     position: absolute;
     font-family: "Poppins";
     font-size: medium;

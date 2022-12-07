@@ -7,7 +7,7 @@
     left: 330px;
     top: 70px;
 
-    font-family: 'Poppins';
+    font-family: Poppins;
     font-style: normal;
     font-weight: 500;
     font-size: 48px;
@@ -37,7 +37,7 @@
 }
 
 /* Week/Actor dropdown-button */
-.dropdown {
+.dropdown{
     min-width: 5em;
     position: relative;
     margin: 2em;
