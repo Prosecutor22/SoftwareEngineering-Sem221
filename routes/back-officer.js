@@ -70,14 +70,14 @@ router.get('/assign-task', async function(req, res, next) {
     var docsfileter = {};
     docsfileter.week = cur;
     if (req.query.type == "collector") {
-        schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {id: 1, route:1, vehicle:1, _id: 0});
-        docsAssigned = await Tasks.find({week:cur, id:/^C[1-4]/, vehicle: null}, {id: 1, _id: 0});
+        schedule = await Tasks.find({week: cur, route:/^R[1-4]/}, {id: 1, route:1, vehicle:1, _id: 0});
+        docsAssigned = await Tasks.find({week:cur, route:/^C[1-4]/, vehicle: null}, {id: 1, _id: 0});
         retAssign.Unassignee = docsAssigned;
         retAssign.Schedule = schedule;
         docsfileter.type = 'Collector';
     }
     else {
-        schedule = await Tasks.find({week: cur, id:/^J[0-9]{1,2}/}, {id: 1, mcp:1, troller:1, _id: 0});
+        schedule = await Tasks.find({week: cur, troller:/^T[0-9]{1,2}/}, {id: 1, mcp:1, troller:1, _id: 0});
         docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/, troller: null}, {id: 1, _id: 0});
         retAssign.Unassignee = docsAssigned;
         retAssign.Schedule = schedule;
@@ -90,6 +90,7 @@ router.get('/assign-task', async function(req, res, next) {
     weeks = (await weekTime.find({},{week: 1, _id: 0})).map(e => e.week)
     //res.send(retAssign);
     // retAssign : week: .... , Unassignee: ....., Schedule: ...., docsfileter: .... 
+    console.log(retAssign);
     res.render('assign-task',{
         title: 'Assign Task',
         weeks: weeks,
