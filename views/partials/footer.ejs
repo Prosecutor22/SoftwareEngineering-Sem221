@@ -1,25 +1,39 @@
-    <footer id="footer">
-        <div class="first-block">
-        <div class="logo">
-            <img src='/pic/logo.png' alt="Logo">
-            <h3>UWC 2.0</h3>
-        </div>
-        <a href="#">©2021 Terms Privacy</a>
-        </div>
-        <div class="second-block">
-        <p>
-            <a href="#">Blog <br></a>
-            <a href="#">Sed Feedback <br></a>
-            <a href="#">About <br></a>
-            <a href="#">Help</a>
-        </p>
-        </div>
-        <div class="social">
-        <a href="#"><img src='/pic/facebook.jpg' alt="facebook"></a>
-        <a href="#"><img src='/pic/instagram.jpg' alt="instagram"></a>
-        <a href="#"><img src='/pic/twitter.jpg' alt="twitter"></a>
-        </div>
-    </footer>
+<script>
+    // dropdown
+    const dropdowns = document.querySelectorAll('.dropdown')
+    dropdowns.forEach(dropdown => {
+        const select = dropdown.querySelector('.select');
+        const caret = dropdown.querySelector('.caret');
+        const menu = dropdown.querySelector('.menu');
+        const options = dropdown.querySelectorAll('.menu li');
+        const selected = dropdown.querySelector('.selected');
+
+        select.addEventListener('click', () => {
+            select.classList.toggle('select-clicked');
+            caret.classList.toggle('caret-rotate');
+            menu.classList.toggle('menu-open');
+        });
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                selected.innerText = option.innerText;
+                select.classList.remove('select-clicked');
+                caret.classList.remove('caret-rotate');
+                menu.classList.remove('menu-open');
+                options.forEach(option => {
+                    option.classList.remove('active');
+                });
+                option.classList.add('active');
+            });
+        });
+    });
+
+    // Dropdown Profile
+    function toggleMenu() {
+        let subMenu = document.getElementById("subMenu");
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
 
 </body>
 </html>
