@@ -96,8 +96,8 @@ const getData = () => {
             task.route = row.children[0].innerText;
             task.vehicle = row.children[1].innerText;
         } else {
-            task.troller = row.children[0].innerText;
-            task.mcp = row.children[1].innerText;
+            task.troller = row.children[1].innerText;
+            task.mcp = row.children[0].innerText;
         }
 
         if (row.children[2].children.length === 0) task.id = null;
