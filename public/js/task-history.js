@@ -24,7 +24,7 @@ function changeEJS(tempData){
 
 const handle_click = (e) => {
     var name = e.target.innerText;
-    console.log(name);
+    // console.log(name);
     onButton = tempData.onButton;
     tempData.onButton = name;
     for (var i=0; i<6; i++){
@@ -40,9 +40,48 @@ choosetypes.forEach((choosetype) => {
     choosetype.addEventListener("click", handle_click);
 });
 
-const search = document.querySelector('.search');
-search.addEventListener("click", () => {
+
+var query = [];
+function updateData(q, key){
+    var obj = [q, key];
+    query = query.filter(que => que[0] !== q);
+    query.push(obj);
     const url = new URL(document.location);
-    //window.location.href = url.pathname + `&q=${tempData.onButton}`;
+    var str = ``;
+    var count = 0;
+    for (var i=0; i<query.length; i++){
+        if (i === 0) str += `?${query[i][0].toLowerCase()}=${query[i][1]}`;
+        else str += `&${query[i][0].toLowerCase()}=${query[i][1]}`;
+    }
+    window.location.href = url.pathname + str;
+}
+function rm(){
+    query.pop();
+    for (var i=0; i<query.length; i++){
+        if (i === 0) str += `${query[i][0].toLowerCase()}=${query[i][1]}`;
+        else str += `&${query[i][0].toLowerCase()}=${query[i][1]}`;
+    }
+}
+
+const keyword = document.getElementById('keyword');
+// name: John, mcp: M2
+// ?name=John&mcp=M2
+const searchs = document.querySelectorAll('.search');
+searchs.forEach(search => {
+    search.addEventListener("click", () => {
+        var q = tempData.onButton;
+        var key = keyword.value;
+        const url = new URL(document.location);
+        if (key !== "") updateData(q, key);
+    })
 });
 
+
+//filter_remove
+const removes = document.querySelectorAll('.filter_remove');
+removes.forEach(remove => {
+    remove.addEventListener("click", () => {
+        rm();
+    })
+});
+  
