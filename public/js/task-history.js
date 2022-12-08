@@ -41,26 +41,30 @@ choosetypes.forEach((choosetype) => {
 });
 
 
-var query = [];
+const query = [];
+
 function updateData(q, key){
     var obj = [q, key];
-    query = query.filter(que => que[0] !== q);
+    query = query.filter(que => que[0] != q);
     query.push(obj);
     const url = new URL(document.location);
     var str = ``;
-    var count = 0;
     for (var i=0; i<query.length; i++){
         if (i === 0) str += `?${query[i][0].toLowerCase()}=${query[i][1]}`;
         else str += `&${query[i][0].toLowerCase()}=${query[i][1]}`;
     }
     window.location.href = url.pathname + str;
 }
+
 function rm(){
     query.pop();
+    const url = new URL(document.location);
+    var str = ``;
     for (var i=0; i<query.length; i++){
         if (i === 0) str += `${query[i][0].toLowerCase()}=${query[i][1]}`;
         else str += `&${query[i][0].toLowerCase()}=${query[i][1]}`;
     }
+    window.location.href = url.pathname + str;
 }
 
 const keyword = document.getElementById('keyword');
