@@ -75,31 +75,35 @@ router.get('/assign-task', async function(req, res, next) {
     tasks = await Tasks.find({week: cur});
     if (req.query.type == "Collector") {
         schedule = await Route.find({}, { id: 1, vehicle_id: 1, _id: 0});
+        schedule = schedule.map(e => e.toObject());
         schedule.forEach(e => {
-            e._doc.route = e._doc.id;
-            e._doc.vehicle = e._doc.vehicle_id;
-            delete e._doc.vehicle_id;
-            e._doc.id = null;
+            e.route = e.id;
+            e.vehicle = e.vehicle_id;
+            delete e.vehicle_id;
+            e.id = null;
             tasks.forEach( t => {
-                if (t._doc.route == e._doc.route) e._doc.id = t._doc.id;
+                if (t.route == e.route) e.id = t.id;
             })
         });
         docsAssigned = await Tasks.find({week:cur, route:/^C[1-4]/, vehicle: null}, {id: 1, _id: 0});
+        docsAssigned = docsAssigned.map(e => e.toObject());
         retAssign.unassigned = docsAssigned;
         retAssign.schedule = schedule;
         docsfileter.type = 'Collector';
     }
     else {
         schedule = await MCP.find({}, {name:1, troller:1, _id: 0});
+        schedule = schedule.map(e => e.toObject());
         schedule.forEach(e => {
-            e._doc.mcp = e._doc.name;
-            e._doc.id = null;
-            delete e._doc.name;
+            e.mcp = e.name;
+            e.id = null;
+            delete e.name;
             tasks.forEach( t => {
-                if (t._doc.troller == e._doc.troller) e._doc.id = t._doc.id;
+                if (t.troller == e.troller) e.id = t.id;
             })
         });
         docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/, troller: null}, {id: 1, _id: 0});
+        docsAssigned = docsAssigned.map(e => e.toObject());
         retAssign.unassigned = docsAssigned;
         retAssign.schedule = schedule;
         console.log(schedule);
