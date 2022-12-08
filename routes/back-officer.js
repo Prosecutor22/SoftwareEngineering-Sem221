@@ -73,14 +73,25 @@ router.get('/assign-task', async function(req, res, next) {
     var docsfileter = {};
     docsfileter.week = cur;
     if (req.query.type == "Collector") {
-        schedule = await Tasks.find({week: cur, route:/^R[1-4]/}, {id: 1, route:1, vehicle:1, _id: 0});
+        schedule = await Route.find({}, { id: 1, vehicle_id: 1, _id: 0});
+        schedule.forEach(e => {
+            e._doc.route = e._doc.id;
+            e._doc.id = null;
+            e._doc.vehicle = e._doc.vehicle_id;
+            delete e._doc.vehicle_id;
+        });
         docsAssigned = await Tasks.find({week:cur, route:/^C[1-4]/, vehicle: null}, {id: 1, _id: 0});
         retAssign.unassigned = docsAssigned;
         retAssign.schedule = schedule;
         docsfileter.type = 'Collector';
     }
     else {
-        schedule = await Tasks.find({week: cur, troller:/^T[0-9]{1,2}/}, {id: 1, mcp:1, troller:1, _id: 0});
+        schedule = await MCP.find({}, {name:1, troller:1, _id: 0});
+        schedule.forEach(e => {
+            e._doc.mcp = e._doc.name;
+            e._doc.id = null;
+            delete e._doc.name;
+        });
         docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/, troller: null}, {id: 1, _id: 0});
         retAssign.unassigned = docsAssigned;
         retAssign.schedule = schedule;
@@ -157,10 +168,16 @@ router.get('/assign-task/last-week', async function(req, res, next){
     if (employee === "Collector"){
         data.unassigned =[];
         data.schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {_id: 0});
+        data.schedule.forEach(e => {
+            delete e.week;
+        })
     }
     else {
         data.unassigned =[];
         data.schedule = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/}, {_id: 0});
+        data.schedule.forEach(e => {
+            delete e.week;
+        })
     }
     retAssign.title = 'Assign Task';
     retAssign.weeks = (await weekTime.find({},{week: 1, _id: 0})).map(e => e.week)
@@ -172,7 +189,6 @@ router.get('/assign-task/last-week', async function(req, res, next){
     retAssign.filter = docsfilter;
     res.json(retAssign);
 });
-
 // TO-DO: create records of new week in tasks collection
 // send: new week created
 router.get('/assign-task/new-week', async function(req, res, next){
