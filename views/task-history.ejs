@@ -78,15 +78,16 @@ Data render from server:
                 <button class="search" type="button" id="search">   
                     Search   
                 </button>
-                <!-- Remove filter button -->
-                <button class="filter_remove" type="button" id="filter_remove">   
-                    Remove   
-                </button>
             </form>
             <hr>
             <div class="filer-display">
-                <h5>Week: 1</h5>
-                <h5>Name: Elon</h5>
+                <% for (const [key, value] of Object.entries(filters)) { %>
+                    <h5><%= key %>: <%= value %></h5>
+                    <!-- Remove filter button -->
+                    <button class="filter_remove" type="button" id=<%= key + "_" + value %>>   
+                        Remove   
+                    </button>
+                <% } %>
             </div>
         </div>
     </div>

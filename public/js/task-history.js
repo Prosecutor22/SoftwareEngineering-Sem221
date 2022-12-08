@@ -41,10 +41,12 @@ choosetypes.forEach((choosetype) => {
 });
 
 
-const query = [];
-
 function updateData(q, key){
     var obj = [q, key];
+    var query = [];
+    const params = (new URL(document.location)).searchParams;
+    for (let key of params.keys()) query.push([key, params.get(key)]);
+
     query = query.filter(que => que[0] != q);
     query.push(obj);
     const url = new URL(document.location);
@@ -56,12 +58,18 @@ function updateData(q, key){
     window.location.href = url.pathname + str;
 }
 
-function rm(){
-    query.pop();
+function rm(e){
+    var query = [];
+    const params = (new URL(document.location)).searchParams;
+    for (let key of params.keys()) query.push([key, params.get(key)]);
+
+    const qDelete = e.target.id.split('_')[0];
+
+    query = query.filter(q => q[0] !== qDelete);
     const url = new URL(document.location);
     var str = ``;
     for (var i=0; i<query.length; i++){
-        if (i === 0) str += `${query[i][0].toLowerCase()}=${query[i][1]}`;
+        if (i === 0) str += `?${query[i][0].toLowerCase()}=${query[i][1]}`;
         else str += `&${query[i][0].toLowerCase()}=${query[i][1]}`;
     }
     window.location.href = url.pathname + str;
@@ -84,8 +92,8 @@ searchs.forEach(search => {
 //filter_remove
 const removes = document.querySelectorAll('.filter_remove');
 removes.forEach(remove => {
-    remove.addEventListener("click", () => {
-        rm();
+    remove.addEventListener("click", (e) => {
+        rm(e);
     })
 });
   
