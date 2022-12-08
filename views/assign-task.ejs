@@ -85,7 +85,7 @@ Data render from server:
           </thead>
           <tbody id="unassignedZone">
             <% data.unassigned.forEach(employee => { %>
-              <tr><td class="Actor"><button draggable="true" class="employee unassigned" id=<%= employee.id %>><%= employee.id %></button></td></tr>
+              <tr><td class="Actor"><button draggable="true" class="employee unassigned" id=<%= employee %>><%= employee %></button></td></tr>
             <% }); %>
           </tbody>
         </table>
@@ -135,7 +135,7 @@ Data render from server:
     <!-- 3.Footer: Last modified, Same as last week, Save -->
     <div class="footer">
       <!-- Last modified -->
-      <label id="time">Last modified: 12:00AM 05/11/2022</label>
+      <label id="time">Last modified: <%= filter.lastModified %> </label>
 
       <!-- Same as last week -->
       <label class="same-as-last-week">Same as last week
