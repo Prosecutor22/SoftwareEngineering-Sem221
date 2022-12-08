@@ -125,17 +125,17 @@ router.get('/assign-task', async function(req, res, next) {
 // body: data (similar to data in assign-task.ejs), week
 // send: result and last modified
 router.post('/assign-task', async function(req, res, next){
-    var tasks = req.body.schedule.filter(e => e.assignee != null);
+    var tasks = req.body.schedule.filter(id != null);
     if (req.query.type === 'Collector'){
         await Tasks.updateMany({week: req.query.week, id: /^C/}, {route: null, vehicle: null});
         tasks.forEach(async (t) => {
-            await Tasks.updateOne({week: req.query.week, id: t.assignee}, {route: t.route, vehicle: t.vehicle})
+            await Tasks.updateOne({week: req.query.week, id: t.id}, {route: t.route, vehicle: t.vehicle})
         });
     }
     else {
         await Tasks.updateMany({week: req.query.week, id: /^J/}, {mcp: null, troller: null});
         tasks.forEach(async (t) => {
-            await Tasks.updateOne({week: req.query.week, id: t.assignee}, {mcp: t.mcp, troller: t.troller});
+            await Tasks.updateOne({week: req.query.week, id: t.id}, {mcp: t.mcp, troller: t.troller});
         });
     }
 

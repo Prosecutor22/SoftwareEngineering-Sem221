@@ -100,8 +100,8 @@ const getData = () => {
             task.mcp = row.children[1].innerText;
         }
 
-        if (row.children[2].children.length === 0) task.assignee = null;
-        else task.assignee = row.children[2].children[0].innerText;
+        if (row.children[2].children.length === 0) task.id = null;
+        else task.id = row.children[2].children[0].innerText;
 
         schedule.push(task);
     };
