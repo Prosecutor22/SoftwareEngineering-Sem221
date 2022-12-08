@@ -72,41 +72,43 @@ router.get('/assign-task', async function(req, res, next) {
     retAssign.week = cur;
     var docsfileter = {};
     docsfileter.week = cur;
-    tasks = await Tasks.find({week: cur});
+    var tasks = await Tasks.find({week: cur});
+    var sched = [];
     if (req.query.type == "Collector") {
         schedule = await Route.find({}, { id: 1, vehicle_id: 1, _id: 0});
-        schedule = schedule.map(e => e.toObject());
         schedule.forEach(e => {
-            e.route = e.id;
-            e.vehicle = e.vehicle_id;
-            delete e.vehicle_id;
-            e.id = null;
+            e._doc.route = e._doc.id;
+            e._doc.vehicle = e._doc.vehicle_id;
+            delete e._doc.vehicle_id;
+            e._doc.id = null;
             tasks.forEach( t => {
-                if (t.route == e.route) e.id = t.id;
+                if (t._doc.route == e._doc.route) e._doc.id = t._doc.id;
             })
+            sched.push({id: e._doc.id, route: e._doc.route, vehicle: e._doc.vehicle});
         });
-        docsAssigned = await Tasks.find({week:cur, route:/^C[1-4]/, vehicle: null}, {id: 1, _id: 0});
-        docsAssigned = docsAssigned.map(e => e.toObject());
-        retAssign.unassigned = docsAssigned;
-        retAssign.schedule = schedule;
+        var docsAssigned = await Tasks.find({week:cur, id:/^C[1-4]/, vehicle: null}, {id: 1, _id: 0});
+        var unassigned = [];
+        docsAssigned.forEach(e => unassigned.push(e.id));
+        retAssign.unassigned = unassigned;
+        retAssign.schedule = sched;
         docsfileter.type = 'Collector';
     }
     else {
         schedule = await MCP.find({}, {name:1, troller:1, _id: 0});
-        schedule = schedule.map(e => e.toObject());
         schedule.forEach(e => {
-            e.mcp = e.name;
-            e.id = null;
-            delete e.name;
+            e._doc.mcp = e._doc.name;
+            e._doc.id = null;
+            delete e._doc.name;
             tasks.forEach( t => {
-                if (t.troller == e.troller) e.id = t.id;
+                if (t._doc.troller == e._doc.troller) e._doc.id = t._doc.id;
             })
+            sched.push({id: e._doc.id, mcp: e._doc.mcp, troller: e._doc.troller});
         });
-        docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/, troller: null}, {id: 1, _id: 0});
-        docsAssigned = docsAssigned.map(e => e.toObject());
-        retAssign.unassigned = docsAssigned;
-        retAssign.schedule = schedule;
-        console.log(schedule);
+        var docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/, troller: null}, {id: 1, _id: 0});
+        var unassigned = [];
+        docsAssigned.forEach(e => unassigned.push(e.id));
+        retAssign.unassigned = unassigned;
+        retAssign.schedule = sched;
         docsfileter.type = 'Janitor';
     }
     var lastMod = await weekTime.find({week:cur}, {lastModified:1, startDay:1, _id: 0});
@@ -129,17 +131,17 @@ router.get('/assign-task', async function(req, res, next) {
 // body: data (similar to data in assign-task.ejs), week
 // send: result and last modified
 router.post('/assign-task', async function(req, res, next){
-    var tasks = req.body.schedule.filter(e => e.id != null);
+    var tasks = req.body.schedule.filter(e => e.assignee != null);
     if (req.query.type === 'Collector'){
         await Tasks.updateMany({week: req.query.week, id: /^C/}, {route: null, vehicle: null});
         tasks.forEach(async (t) => {
-            await Tasks.updateOne({week: req.query.week, id: t.id}, {route: t.route, vehicle: t.vehicle})
+            await Tasks.updateOne({week: req.query.week, id: t.assignee}, {route: t.route, vehicle: t.vehicle})
         });
     }
     else {
         await Tasks.updateMany({week: req.query.week, id: /^J/}, {mcp: null, troller: null});
         tasks.forEach(async (t) => {
-            await Tasks.updateOne({week: req.query.week, id: t.id}, {mcp: t.mcp, troller: t.troller});
+            await Tasks.updateOne({week: req.query.week, id: t.assignee}, {mcp: t.mcp, troller: t.troller});
         });
     }
 
@@ -172,24 +174,50 @@ router.get('/assign-task/last-week', async function(req, res, next){
     var retAssign = {};
     var data = {};
     var docsfilter = {};
-    var stt = (await weekTime.find({week: cur})).at(0).status;
-    if (cur < 1 || stt === "in-progress"){
+    if (cur < 1){
         res.status(404).send('Cannot get last week');
         return ;
     }
+    var tasks = await Tasks.find({week: cur});
+    var sched = [];
     if (employee === "Collector"){
-        data.unassigned =[];
-        data.schedule = await Tasks.find({week: cur, id:/^C[1-4]/}, {_id: 0});
-        data.schedule.forEach(e => {
-            delete e.week;
+        var freeE = await Tasks.find({week: cur, id:/^C[1-4]/, vehicle: null});
+        var unArray = [];
+        freeE.forEach(e => {
+            unArray.push(e.id);
         })
+        data.unassigned = unArray;
+        schedule = await Route.find({}, { id: 1, vehicle_id: 1, _id: 0});
+        schedule.forEach(e => {
+            e._doc.route = e._doc.id;
+            e._doc.vehicle = e._doc.vehicle_id;
+            delete e._doc.vehicle_id;
+            e._doc.id = null;
+            tasks.forEach( t => {
+                if (t._doc.route == e._doc.route) e._doc.id = t._doc.id;
+            })
+            sched.push({id: e._doc.id, route: e._doc.route, vehicle: e._doc.vehicle});
+        })
+        data.schedule = sched;
     }
     else {
-        data.unassigned =[];
-        data.schedule = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/}, {_id: 0});
-        data.schedule.forEach(e => {
-            delete e.week;
+        var freeE = await Tasks.find({week: cur, id:/^J[0-9]{1,2}/, troller: null});
+        var unArray = [];
+        freeE.forEach(e => {
+            unArray.push(e.id);
         })
+        data.unassigned = unArray;
+        schedule = await MCP.find({}, {name:1, troller:1, _id: 0});
+        schedule.forEach(e => {
+            e._doc.mcp = e._doc.name;
+            e._doc.id = null;
+            delete e._doc.name;
+            tasks.forEach( t => {
+                if (t._doc.troller == e._doc.troller) e._doc.id = t._doc.id;
+            })
+            sched.push({id: e._doc.id, mcp: e._doc.mcp, troller: e._doc.troller});
+        });
+        data.schedule = sched;
     }
     retAssign.title = 'Assign Task';
     retAssign.weeks = (await weekTime.find({},{week: 1, _id: 0})).map(e => e.week)
@@ -199,6 +227,8 @@ router.get('/assign-task/last-week', async function(req, res, next){
     docsfilter.lastModified = (await weekTime.find({week: cur})).at(0).lastModified;
     docsfilter.startDay = (await weekTime.find({week: cur})).at(0).startDay;
     retAssign.filter = docsfilter;
+    console.log(retAssign);
+    console.log(retAssign.data);
     res.json(retAssign);
 });
 // TO-DO: create records of new week in tasks collection
