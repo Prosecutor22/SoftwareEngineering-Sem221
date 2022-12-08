@@ -72,13 +72,17 @@ router.get('/assign-task', async function(req, res, next) {
     retAssign.week = cur;
     var docsfileter = {};
     docsfileter.week = cur;
+    tasks = await Tasks.find({week: cur});
     if (req.query.type == "Collector") {
         schedule = await Route.find({}, { id: 1, vehicle_id: 1, _id: 0});
         schedule.forEach(e => {
             e._doc.route = e._doc.id;
-            e._doc.id = null;
             e._doc.vehicle = e._doc.vehicle_id;
             delete e._doc.vehicle_id;
+            e._doc.id = null;
+            tasks.forEach( t => {
+                if (t._doc.route == e._doc.route) e._doc.id = t._doc.id;
+            })
         });
         docsAssigned = await Tasks.find({week:cur, route:/^C[1-4]/, vehicle: null}, {id: 1, _id: 0});
         retAssign.unassigned = docsAssigned;
@@ -91,10 +95,14 @@ router.get('/assign-task', async function(req, res, next) {
             e._doc.mcp = e._doc.name;
             e._doc.id = null;
             delete e._doc.name;
+            tasks.forEach( t => {
+                if (t._doc.troller == e._doc.troller) e._doc.id = t._doc.id;
+            })
         });
         docsAssigned = await Tasks.find({week:cur, id:/^J[0-9]{1,2}/, troller: null}, {id: 1, _id: 0});
         retAssign.unassigned = docsAssigned;
         retAssign.schedule = schedule;
+        console.log(schedule);
         docsfileter.type = 'Janitor';
     }
     var lastMod = await weekTime.find({week:cur}, {lastModified:1, startDay:1, _id: 0});
