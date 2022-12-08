@@ -129,7 +129,7 @@ router.get('/assign-task', async function(req, res, next) {
 // body: data (similar to data in assign-task.ejs), week
 // send: result and last modified
 router.post('/assign-task', async function(req, res, next){
-    var tasks = req.body.schedule.filter(id != null);
+    var tasks = req.body.schedule.filter(e => e.id != null);
     if (req.query.type === 'Collector'){
         await Tasks.updateMany({week: req.query.week, id: /^C/}, {route: null, vehicle: null});
         tasks.forEach(async (t) => {
